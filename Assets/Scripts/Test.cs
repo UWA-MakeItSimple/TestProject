@@ -6,7 +6,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 
-public class Test : MonoBehaviour {
+public class Test : MonoBehaviour
+{
 
     private Material blue;
     private GameObject go;
@@ -20,12 +21,14 @@ public class Test : MonoBehaviour {
     {
     }
 
-    void Start () {
+    void Start()
+    {
     }
-	
-	// Update is called once per frame
-	void Update () {
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
 
     byte[] MyDecription(byte[] binary)
     {
@@ -51,7 +54,7 @@ public class Test : MonoBehaviour {
         GameObject gpPrefabs = (GameObject)Instantiate(abrequest.asset);
         Debug.Log("LoadAllAssets before");
         GameObject[] obj = ab0.LoadAllAssets<GameObject>();
-        foreach(var item in obj)
+        foreach (var item in obj)
         {
             Instantiate(item);
         }
@@ -97,7 +100,7 @@ public class Test : MonoBehaviour {
 
     private void OnGUI()
     {
-        if (GUILayout.Button("\n\tLoad\t\n"))
+        if (GUILayout.Button("\n\tLoad\t\n", GUILayout.Width(200), GUILayout.Height(150)))
         {
             Debug.Log("Start Load");
             StartCoroutine(loadAsset());
@@ -130,14 +133,14 @@ public class Test : MonoBehaviour {
             Debug.Log("instance4 before");
             GameObject instance4 = Instantiate(go, pos, instance1.transform.rotation, instance1.transform);
         }
-        if (GUILayout.Button("UnloadAsset"))
+        if (GUILayout.Button("UnloadAsset", GUILayout.Width(200), GUILayout.Height(150)))
         {
             Destroy(go);
             Resources.UnloadAsset(blue);
             ab0.Unload(true);
-            
+
         }
-        if (GUILayout.Button("SetActive"))
+        if (GUILayout.Button("SetActive", GUILayout.Width(200), GUILayout.Height(150)))
         {
             instance1.SetActive(false);
         }
