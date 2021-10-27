@@ -136,7 +136,7 @@ public class Test : MonoBehaviour
         if (GUILayout.Button("UnloadAsset", GUILayout.Width(200), GUILayout.Height(150)))
         {
             Destroy(go);
-            Resources.UnloadAsset(blue);
+            Resources.UnloadAsset(go);
             ab0.Unload(true);
 
         }
