@@ -9,7 +9,6 @@ namespace Assets.UWA
 {
     public class TypeHolder
     {
-
         public static readonly TypeHolder Instance = new TypeHolder();
         private TypeHolder() { }
 
@@ -21,13 +20,17 @@ namespace Assets.UWA
             Resources.UnloadUnusedAssets();
             Resources.LoadAll("");
 
+            Canvas c = null;
             GameObject go = null;
+            WWW w = null;
             AssetBundle ab = null;
             Animator at = null;
             Animation an = null;
             ParticleSystem ps = null;
             TextAsset ta = null;
             Mesh m = null;
+            MeshFilter mf = null;
+            MeshCollider mc = null;
             Shader s = null;
             Texture t = null;
             Texture2D t2 = null;
@@ -84,7 +87,6 @@ namespace Assets.UWA
             Check(recorder2.sampleBlockCount);
             Check(recorder2.elapsedNanoseconds);
 #endif
-
             Profiler.BeginSample("", new Object());
             Profiler.BeginSample("");
             Profiler.EndSample();
@@ -104,9 +106,28 @@ namespace Assets.UWA
             Check(Profiler.supported);
             Check(f.fontSize);
             Check(t2.mipmapCount);
+            Check(mc.sharedMesh);
+            Check(mf.mesh);
+            Check(mf.sharedMesh);
+            Check(w.assetBundle);
+            Check(w.error);
+            Check(r.sharedMesh);
+            Check(r.rootBone);
+            Check(r.bones);
+            Check(r.updateWhenOffscreen);
+            Check(r.quality);
+            Check(c.renderMode);
+            GL.Clear(true, true, Color.red);
+            object[] os = Camera.allCameras;
         }
 
         void Check(object o) { }
+
+        void OnGUI()
+        {
+            GUILayout.Button("");
+            GUILayout.Label("");
+        }
     }
 }
 #pragma warning restore
