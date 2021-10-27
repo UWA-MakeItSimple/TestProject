@@ -10,6 +10,7 @@ public class Test : MonoBehaviour
 {
 
     private Material blue;
+    private Texture2D haha;
     private GameObject go;
     private GameObject instance1;
     private string path;
@@ -94,7 +95,7 @@ public class Test : MonoBehaviour
         AssetBundle ab0 = AssetBundle.LoadFromMemory(decryptedBytes);
         AssetBundleCreateRequest ab1 = AssetBundle.LoadFromMemoryAsync(decryptedBytes);
         yield return ab1;
-        ab0.Unload(true);
+        //ab0.Unload(true);
         ab1.assetBundle.Unload(true);
     }
 
@@ -102,47 +103,77 @@ public class Test : MonoBehaviour
     {
         if (GUILayout.Button("\n\tLoad\t\n", GUILayout.Width(200), GUILayout.Height(150)))
         {
-            Debug.Log("Start Load");
-            StartCoroutine(loadAsset());
-            StartCoroutine(loadnet());
-            StartCoroutine(loadstream());
+            //Debug.Log("Start Load");
+            //StartCoroutine(loadAsset());
+            //StartCoroutine(loadnet());
+            //StartCoroutine(loadstream());
 
 
             //过了 没问题
-            Debug.Log("Resources.Load before");
-            go = Resources.Load("Cube") as GameObject;
-            instance1 = Instantiate(go);
+            //Debug.Log("Resources.Load before");
+            blue = Resources.Load("blue") as Material;
+            haha = Resources.Load("huh") as Texture2D;
+            CreateCube(blue);
+            CreateCube(haha);
+            //go = Resources.Load("Cube") as GameObject;
+            //instance1 = Instantiate(go);
 
-            Debug.Log("Resources.LoadAsync before");
-            ResourceRequest request = Resources.LoadAsync("Cube");
-            Instantiate(request.asset);
+            //Debug.Log("Resources.LoadAsync before");
+            //ResourceRequest request = Resources.LoadAsync("Cube");
+            //Instantiate(request.asset);
 
-            Debug.Log("Resources.LoadAll before");
-            Object[] Gos = Resources.LoadAll("");
-            foreach (var t in Gos)
-            {
-                Debug.Log(t.name);
-            }
-            instance1.GetComponent<MeshRenderer>().material = blue;
+            //Debug.Log("Resources.LoadAll before");
+            //Object[] Gos = Resources.LoadAll("");
+            //foreach (var t in Gos)
+            //{
+            //    Debug.Log(t.name);
+            //}
+            //instance1.GetComponent<MeshRenderer>().material = blue;
 
-            Debug.Log("instance2 before");
-            GameObject instance2 = Instantiate(go, instance1.transform, true);
-            Debug.Log("instance3 before");
-            Vector3 pos = new Vector3(0, 2, 0);
-            GameObject instance3 = Instantiate(go, instance1.transform.position, instance1.transform.rotation);
-            Debug.Log("instance4 before");
-            GameObject instance4 = Instantiate(go, pos, instance1.transform.rotation, instance1.transform);
+            //Debug.Log("instance2 before");
+            //GameObject instance2 = Instantiate(go, instance1.transform, true);
+            //Debug.Log("instance3 before");
+            //Vector3 pos = new Vector3(0, 2, 0);
+            //GameObject instance3 = Instantiate(go, instance1.transform.position, instance1.transform.rotation);
+            //Debug.Log("instance4 before");
+            //GameObject instance4 = Instantiate(go, pos, instance1.transform.rotation, instance1.transform);
         }
         if (GUILayout.Button("UnloadAsset", GUILayout.Width(200), GUILayout.Height(150)))
         {
-            Destroy(go);
-            Resources.UnloadAsset(go);
-            ab0.Unload(true);
+            //blue = null;
+            Resources.UnloadAsset(haha);
+            Debug.Log(haha == null);
+            //Destroy(go);
+            //ab0.Unload(true);
 
         }
         if (GUILayout.Button("SetActive", GUILayout.Width(200), GUILayout.Height(150)))
         {
-            instance1.SetActive(false);
+            //instance1.SetActive(false);
         }
+
+        if (GUILayout.Button("CreateCube", GUILayout.Width(200), GUILayout.Height(150)))
+        {
+            CreateCube(haha);
+        }
+    }
+    private Vector3 _position = new Vector3(-3, 0, 0);
+    public void CreateCube(Material material)
+    {
+        _position += new Vector3(1.5f, 0, 0);
+        var plane = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        plane.transform.position = _position;
+        var planeRender = plane.GetComponent<MeshRenderer>();
+        planeRender.material = material;
+    }
+    public void CreateCube(Texture2D textureTex2d)
+    {
+        _position += new Vector3(1.5f, 0, 0);
+        var plane = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        plane.transform.position = _position;
+        var planeMaterial = new Material(Shader.Find(@"Legacy Shaders/Diffuse"));
+        var planeRender = plane.GetComponent<MeshRenderer>();
+        planeRender.material = planeMaterial;
+        planeMaterial.mainTexture = textureTex2d;
     }
 }
