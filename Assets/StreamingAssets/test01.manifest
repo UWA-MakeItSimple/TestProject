@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2283332907
+CRC: 1627421345
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3643091d791d38e87ed44eb2739ec2e5
+    Hash: 36d35612f9d7c6de0915245ad44767d7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: f094e6fac7be3ccb6b2da2231237056f
+    Hash: eae41907835d56d5c4ee33f45462f8b7
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -16,6 +16,8 @@ ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
 - Class: 23
+  Script: {instanceID: 0}
+- Class: 28
   Script: {instanceID: 0}
 - Class: 33
   Script: {instanceID: 0}
@@ -27,10 +29,13 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 136
   Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Resources/Sphere.prefab
 - Assets/Resources/Capsule.prefab
 - Assets/Resources/met01.mat
+- Assets/sprite/01.jpg
 - "Assets/Resources/\u54C8\u54C8.prefab"
 Dependencies: []

@@ -1,0 +1,54 @@
+ManifestFileVersion: 0
+CRC: 3503290795
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3ce2d711b8a71c2da11431f8c66ddb73
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 391cdeaafbda319fadbab728d01b86e8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Sphere.prefab
+- Assets/Resources/NewUnlitShader.shader
+- Assets/Resources/sprite B.spriteatlas
+- Assets/Resources/yellow.mat
+- Assets/Resources/Capsule.prefab
+- Assets/Resources/met01.mat
+- Assets/Resources/red.mat
+- Assets/Resources/Cube.prefab
+- Assets/Resources/blue.mat
+- "Assets/Resources/\u54C8\u54C8.prefab"
+- Assets/Resources/sprite A.spriteatlas
+- Assets/Resources/New Material.mat
+- Assets/Resources/Triangle01.png
+- Assets/Resources/demo01.jpg
+Dependencies: []

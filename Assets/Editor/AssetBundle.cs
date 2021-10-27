@@ -40,7 +40,7 @@ public class AssetBundle : Editor
             Debug.Log("将要打包到Windows");
             abb.assetBundleName = AssetBundleWindow.AssetBudleName + "_windows.UnityAsb";
             //开始打包；
-            BuildPipeline.BuildAssetBundles(path, new AssetBundleBuild[] { abb }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
+            BuildPipeline.BuildAssetBundles(path, new AssetBundleBuild[] { abb }, BuildAssetBundleOptions.DisableWriteTypeTree, BuildTarget.StandaloneWindows64);
         }
         if (AssetBundleWindow.IsAndorid)
         {
@@ -53,10 +53,10 @@ public class AssetBundle : Editor
         if (AssetBundleWindow.IsApple)
         {
             //设置路径：
-            Debug.Log("将要打包到苹果");
-            abb.assetBundleName = AssetBundleWindow.AssetBudleName + "_ios.UnityAsb";
+            Debug.Log("将要打包到tvOS");
+            abb.assetBundleName = AssetBundleWindow.AssetBudleName + "_tvOS.UnityAsb";
             //开始打包；
-            BuildPipeline.BuildAssetBundles(path, new AssetBundleBuild[] { abb }, BuildAssetBundleOptions.None, BuildTarget.iOS);
+            BuildPipeline.BuildAssetBundles(path, new AssetBundleBuild[] { abb }, BuildAssetBundleOptions.None, BuildTarget.tvOS);
         }
         Debug.Log("打包完成！");
     }
