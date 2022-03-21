@@ -142,9 +142,9 @@ public class Test : MonoBehaviour
         {
             //blue = null;
             Resources.UnloadAsset(haha);
-            Debug.Log(haha == null);
-            //Destroy(go);
-            //ab0.Unload(true);
+            Resources.UnloadAsset(blue);
+            Destroy(go);
+            ab0.Unload(true);
 
         }
         if (GUILayout.Button("SetActive", GUILayout.Width(200), GUILayout.Height(150)))
