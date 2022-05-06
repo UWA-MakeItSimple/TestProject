@@ -6,5 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TesGraphicsAPI.unity
-    guid: 52beb585ee0ce614287cae7e6c2933e8
+    path: Assets/DuckHunt/Duck Hunt Case/DuckHuntLua.unity
+    guid: f97e56a0c74d24fff85499125d925a12
+  - enabled: 1
+    path: Assets/ResourceManager/ResourcesMannager.unity
+    guid: da2b0ba9579a1ab4da2d2de63ce759ca
+  - enabled: 1
+    path: Assets/RayTracing/Scenes/RayTrace.unity
+    guid: acaf0eeeba8243343956cc48716d0e64
+  m_configObjects: {}

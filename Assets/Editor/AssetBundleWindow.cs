@@ -8,6 +8,11 @@ using UnityEditor;//编辑状态用
 /// </summary>
 public class AssetBundleWindow : EditorWindow
 {
+    [MenuItem("AssetsBundle/ExportAB")]
+    public static void ShowWindow()
+    {
+        EditorWindow.GetWindow(typeof(AssetBundleWindow));
+    }
     /// <summary>
     /// asb的名字；
     /// </summary>
@@ -35,11 +40,6 @@ public class AssetBundleWindow : EditorWindow
         titleContent = new GUIContent("资源打包");
     }
 
-
-    public static void ShowWindow()
-    {
-        GetWindow(typeof(AssetBundleWindow));
-    }
 
     private void OnGUI()
     {
