@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/RayTracing/Scenes/RayTrace.unity
     guid: acaf0eeeba8243343956cc48716d0e64
+  - enabled: 1
+    path: Assets/PositionBasedDynamics/FluidDemo.unity
+    guid: 06d84de4619e9f54c9658977ab3b2e5d
   m_configObjects: {}
