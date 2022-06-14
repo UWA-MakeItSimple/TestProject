@@ -160,6 +160,11 @@ public class Test : MonoBehaviour
 
     void Update()
     {
+        // AudioSource.Play
+        var audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.Play();
+        // GameObject.AddComponent
+        gameObject.AddComponent<Light>();
         //CharacterController.Move
         var cc = gameObject.GetComponent<CharacterController>();
         cc.Move(new Vector3(0, 0, 0));
