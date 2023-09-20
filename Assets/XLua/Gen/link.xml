@@ -2,14 +2,40 @@
 
 <linker>
 
-	<assembly fullname="mscorlib">
-	    <type fullname="System.Object" preserve="all"/>
-		<type fullname="System.Collections.Generic.List`1[System.Int32]" preserve="all"/>
+	<assembly fullname="Assembly-CSharp">
+	    <type fullname="Coroutine_Runner" preserve="all"/>
+		<type fullname="DuckHuntLuaWWise" preserve="all"/>
+		<type fullname="LQQ.LuaBehaviour" preserve="all"/>
+		<type fullname="Tutorial.BaseClass" preserve="all"/>
+		<type fullname="Tutorial.TestEnum" preserve="all"/>
+		<type fullname="Tutorial.DerivedClass" preserve="all"/>
+		<type fullname="Tutorial.ICalc" preserve="all"/>
+		<type fullname="Tutorial.DerivedClassExtensions" preserve="all"/>
+		<type fullname="XLuaTest.LuaBehaviour" preserve="all"/>
+		<type fullname="XLuaTest.Pedding" preserve="all"/>
+		<type fullname="XLuaTest.MyStruct" preserve="all"/>
+		<type fullname="XLuaTest.MyEnum" preserve="all"/>
+		<type fullname="XLuaTest.NoGc" preserve="all"/>
+		<type fullname="XLuaTest.BaseTest" preserve="all"/>
+		<type fullname="XLuaTest.Foo1Parent" preserve="all"/>
+		<type fullname="XLuaTest.Foo2Parent" preserve="all"/>
+		<type fullname="XLuaTest.Foo1Child" preserve="all"/>
+		<type fullname="XLuaTest.Foo2Child" preserve="all"/>
+		<type fullname="XLuaTest.Foo" preserve="all"/>
+		<type fullname="XLuaTest.FooExtension" preserve="all"/>
+		<type fullname="Tutorial.DerivedClass+TestEnumInner" preserve="all"/>
+		<type fullname="LQQ.DuckHuntLuaCallCS" preserve="all"/>
+		<type fullname="Othink.ArboxCallCs.SimpleTouchController" preserve="all"/>
+		<type fullname="DuckHuntLuaResourceRef" preserve="all"/>
+		<type fullname="LQQ.DuckHuntLuaUMovie" preserve="all"/>
+		<type fullname="LQQ.DuckHuntLuaCollision" preserve="all"/>
+		<type fullname="ImageEffect_MoblieBloom" preserve="all"/>
 		
 	</assembly>
 
 	<assembly fullname="UnityEngine.CoreModule">
-	    <type fullname="UnityEngine.Object" preserve="all"/>
+	    <type fullname="UnityEngine.WaitForSeconds" preserve="all"/>
+		<type fullname="UnityEngine.Object" preserve="all"/>
 		<type fullname="UnityEngine.Vector2" preserve="all"/>
 		<type fullname="UnityEngine.Vector3" preserve="all"/>
 		<type fullname="UnityEngine.Vector4" preserve="all"/>
@@ -46,7 +72,26 @@
 		<type fullname="UnityEngine.RectTransform" preserve="all"/>
 		<type fullname="UnityEngine.RectOffset" preserve="all"/>
 		<type fullname="UnityEngine.SpriteRenderer" preserve="all"/>
-		<type fullname="UnityEngine.WaitForSeconds" preserve="all"/>
+		
+	</assembly>
+
+	<assembly fullname="mscorlib">
+	    <type fullname="System.Object" preserve="all"/>
+		<type fullname="System.Collections.Generic.List`1[System.Int32]" preserve="all"/>
+		
+	</assembly>
+
+	<assembly fullname="UnityEngine.AnimationModule">
+	    <type fullname="UnityEngine.AnimationClip" preserve="all"/>
+		<type fullname="UnityEngine.Animator" preserve="all"/>
+		<type fullname="UnityEngine.AnimatorStateInfo" preserve="all"/>
+		<type fullname="UnityEngine.Animation" preserve="all"/>
+		<type fullname="UnityEngine.AnimationState" preserve="all"/>
+		
+	</assembly>
+
+	<assembly fullname="UnityEngine.ParticleSystemModule">
+	    <type fullname="UnityEngine.ParticleSystem" preserve="all"/>
 		
 	</assembly>
 
@@ -65,52 +110,8 @@
 		
 	</assembly>
 
-	<assembly fullname="UnityEngine.AnimationModule">
-	    <type fullname="UnityEngine.AnimationClip" preserve="all"/>
-		<type fullname="UnityEngine.Animator" preserve="all"/>
-		<type fullname="UnityEngine.AnimatorStateInfo" preserve="all"/>
-		<type fullname="UnityEngine.Animation" preserve="all"/>
-		<type fullname="UnityEngine.AnimationState" preserve="all"/>
-		
-	</assembly>
-
-	<assembly fullname="UnityEngine.ParticleSystemModule">
-	    <type fullname="UnityEngine.ParticleSystem" preserve="all"/>
-		
-	</assembly>
-
 	<assembly fullname="UnityEngine.UnityWebRequestModule">
 	    <type fullname="UnityEngine.WWWForm" preserve="all"/>
-		
-	</assembly>
-
-	<assembly fullname="Assembly-CSharp">
-	    <type fullname="LQQ.DuckHuntLuaCallCS" preserve="all"/>
-		<type fullname="Othink.ArboxCallCs.SimpleTouchController" preserve="all"/>
-		<type fullname="DuckHuntLuaResourceRef" preserve="all"/>
-		<type fullname="LQQ.DuckHuntLuaUMovie" preserve="all"/>
-		<type fullname="LQQ.DuckHuntLuaCollision" preserve="all"/>
-		<type fullname="ImageEffect_MoblieBloom" preserve="all"/>
-		<type fullname="LQQ.LuaBehaviour" preserve="all"/>
-		<type fullname="Coroutine_Runner" preserve="all"/>
-		<type fullname="XLuaTest.LuaBehaviour" preserve="all"/>
-		<type fullname="XLuaTest.Pedding" preserve="all"/>
-		<type fullname="XLuaTest.MyStruct" preserve="all"/>
-		<type fullname="XLuaTest.MyEnum" preserve="all"/>
-		<type fullname="XLuaTest.NoGc" preserve="all"/>
-		<type fullname="XLuaTest.BaseTest" preserve="all"/>
-		<type fullname="XLuaTest.Foo1Parent" preserve="all"/>
-		<type fullname="XLuaTest.Foo2Parent" preserve="all"/>
-		<type fullname="XLuaTest.Foo1Child" preserve="all"/>
-		<type fullname="XLuaTest.Foo2Child" preserve="all"/>
-		<type fullname="XLuaTest.Foo" preserve="all"/>
-		<type fullname="XLuaTest.FooExtension" preserve="all"/>
-		<type fullname="Tutorial.BaseClass" preserve="all"/>
-		<type fullname="Tutorial.TestEnum" preserve="all"/>
-		<type fullname="Tutorial.DerivedClass" preserve="all"/>
-		<type fullname="Tutorial.DerivedClass+TestEnumInner" preserve="all"/>
-		<type fullname="Tutorial.ICalc" preserve="all"/>
-		<type fullname="Tutorial.DerivedClassExtensions" preserve="all"/>
 		
 	</assembly>
 
@@ -129,7 +130,6 @@
 
 	<assembly fullname="UnityEngine.AudioModule">
 	    <type fullname="UnityEngine.AudioClip" preserve="all"/>
-		<type fullname="UnityEngine.AudioSource" preserve="all"/>
 		<type fullname="UnityEngine.AudioListener" preserve="all"/>
 		
 	</assembly>

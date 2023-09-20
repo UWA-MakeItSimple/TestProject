@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.Camera);
-			Utils.BeginObjectRegister(type, L, translator, 0, 38, 56, 43);
+			Utils.BeginObjectRegister(type, L, translator, 0, 42, 57, 44);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Reset", _m_Reset);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ResetTransparencySortSettings", _m_ResetTransparencySortSettings);
@@ -29,6 +29,8 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ResetCullingMatrix", _m_ResetCullingMatrix);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetReplacementShader", _m_SetReplacementShader);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ResetReplacementShader", _m_ResetReplacementShader);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetGateFittedFieldOfView", _m_GetGateFittedFieldOfView);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetGateFittedLensShift", _m_GetGateFittedLensShift);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetTargetBuffers", _m_SetTargetBuffers);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ResetWorldToCameraMatrix", _m_ResetWorldToCameraMatrix);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ResetProjectionMatrix", _m_ResetProjectionMatrix);
@@ -54,6 +56,7 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Render", _m_Render);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RenderWithShader", _m_RenderWithShader);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RenderDontRestore", _m_RenderDontRestore);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SubmitRenderRequests", _m_SubmitRenderRequests);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "CopyFrom", _m_CopyFrom);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RemoveCommandBuffers", _m_RemoveCommandBuffers);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RemoveAllCommandBuffers", _m_RemoveAllCommandBuffers);
@@ -61,6 +64,7 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddCommandBufferAsync", _m_AddCommandBufferAsync);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RemoveCommandBuffer", _m_RemoveCommandBuffer);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetCommandBuffers", _m_GetCommandBuffers);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "TryGetCullingParameters", _m_TryGetCullingParameters);
 			
 			
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "nearClipPlane", _g_get_nearClipPlane);
@@ -84,6 +88,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "eventMask", _g_get_eventMask);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "layerCullSpherical", _g_get_layerCullSpherical);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "cameraType", _g_get_cameraType);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "overrideSceneCullingMask", _g_get_overrideSceneCullingMask);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "layerCullDistances", _g_get_layerCullDistances);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "useOcclusionCulling", _g_get_useOcclusionCulling);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "cullingMatrix", _g_get_cullingMatrix);
@@ -139,6 +144,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "eventMask", _s_set_eventMask);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "layerCullSpherical", _s_set_layerCullSpherical);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "cameraType", _s_set_cameraType);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "overrideSceneCullingMask", _s_set_overrideSceneCullingMask);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "layerCullDistances", _s_set_layerCullDistances);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "useOcclusionCulling", _s_set_useOcclusionCulling);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "cullingMatrix", _s_set_cullingMatrix);
@@ -168,10 +174,12 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 6, 7, 3);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 8, 7, 3);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "CalculateProjectionMatrixFromPhysicalProperties", _m_CalculateProjectionMatrixFromPhysicalProperties_xlua_st_);
-            //Utils.RegisterFunc(L, Utils.CLS_IDX, "FocalLengthToFOV", _m_FocalLengthToFOV_xlua_st_);
-            //Utils.RegisterFunc(L, Utils.CLS_IDX, "FOVToFocalLength", _m_FOVToFocalLength_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "FocalLengthToFieldOfView", _m_FocalLengthToFieldOfView_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "FieldOfViewToFocalLength", _m_FieldOfViewToFocalLength_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "HorizontalToVerticalFieldOfView", _m_HorizontalToVerticalFieldOfView_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "VerticalToHorizontalFieldOfView", _m_VerticalToHorizontalFieldOfView_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetAllCameras", _m_GetAllCameras_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetupCurrent", _m_SetupCurrent_xlua_st_);
             
@@ -379,6 +387,62 @@ namespace XLua.CSObjectWrap
                     
                     
                     return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetGateFittedFieldOfView(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                        float gen_ret = gen_to_be_invoked.GetGateFittedFieldOfView(  );
+                        LuaAPI.lua_pushnumber(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetGateFittedLensShift(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                        UnityEngine.Vector2 gen_ret = gen_to_be_invoked.GetGateFittedLensShift(  );
+                        translator.PushUnityEngineVector2(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
                 }
                 
             } catch(System.Exception gen_e) {
@@ -928,57 +992,109 @@ namespace XLua.CSObjectWrap
             
         }
         
-      //  [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-      //  static int _m_FocalLengthToFOV_xlua_st_(RealStatePtr L)
-      //  {
-		    //try {
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_FocalLengthToFieldOfView_xlua_st_(RealStatePtr L)
+        {
+		    try {
             
             
             
                 
-      //          {
-      //              float _focalLength = (float)LuaAPI.lua_tonumber(L, 1);
-      //              float _sensorSize = (float)LuaAPI.lua_tonumber(L, 2);
+                {
+                    float _focalLength = (float)LuaAPI.lua_tonumber(L, 1);
+                    float _sensorSize = (float)LuaAPI.lua_tonumber(L, 2);
                     
-      //                  float gen_ret = UnityEngine.Camera.FocalLengthToFOV( _focalLength, _sensorSize );
-      //                  LuaAPI.lua_pushnumber(L, gen_ret);
+                        float gen_ret = UnityEngine.Camera.FocalLengthToFieldOfView( _focalLength, _sensorSize );
+                        LuaAPI.lua_pushnumber(L, gen_ret);
                     
                     
                     
-      //              return 1;
-      //          }
+                    return 1;
+                }
                 
-      //      } catch(System.Exception gen_e) {
-      //          return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-      //      }
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
             
-      //  }
+        }
         
-      //  [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-      //  static int _m_FOVToFocalLength_xlua_st_(RealStatePtr L)
-      //  {
-		    //try {
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_FieldOfViewToFocalLength_xlua_st_(RealStatePtr L)
+        {
+		    try {
             
             
             
                 
-      //          {
-      //              float _fov = (float)LuaAPI.lua_tonumber(L, 1);
-      //              float _sensorSize = (float)LuaAPI.lua_tonumber(L, 2);
+                {
+                    float _fieldOfView = (float)LuaAPI.lua_tonumber(L, 1);
+                    float _sensorSize = (float)LuaAPI.lua_tonumber(L, 2);
                     
-      //                  float gen_ret = UnityEngine.Camera.FOVToFocalLength( _fov, _sensorSize );
-      //                  LuaAPI.lua_pushnumber(L, gen_ret);
+                        float gen_ret = UnityEngine.Camera.FieldOfViewToFocalLength( _fieldOfView, _sensorSize );
+                        LuaAPI.lua_pushnumber(L, gen_ret);
                     
                     
                     
-      //              return 1;
-      //          }
+                    return 1;
+                }
                 
-      //      } catch(System.Exception gen_e) {
-      //          return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-      //      }
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
             
-      //  }
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_HorizontalToVerticalFieldOfView_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    float _horizontalFieldOfView = (float)LuaAPI.lua_tonumber(L, 1);
+                    float _aspectRatio = (float)LuaAPI.lua_tonumber(L, 2);
+                    
+                        float gen_ret = UnityEngine.Camera.HorizontalToVerticalFieldOfView( _horizontalFieldOfView, _aspectRatio );
+                        LuaAPI.lua_pushnumber(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_VerticalToHorizontalFieldOfView_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    float _verticalFieldOfView = (float)LuaAPI.lua_tonumber(L, 1);
+                    float _aspectRatio = (float)LuaAPI.lua_tonumber(L, 2);
+                    
+                        float gen_ret = UnityEngine.Camera.VerticalToHorizontalFieldOfView( _verticalFieldOfView, _aspectRatio );
+                        LuaAPI.lua_pushnumber(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_GetStereoNonJitteredProjectionMatrix(RealStatePtr L)
@@ -1399,6 +1515,34 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SubmitRenderRequests(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    System.Collections.Generic.List<UnityEngine.Camera.RenderRequest> _renderRequests = (System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>));
+                    
+                    gen_to_be_invoked.SubmitRenderRequests( _renderRequests );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_SetupCurrent_xlua_st_(RealStatePtr L)
         {
 		    try {
@@ -1621,6 +1765,55 @@ namespace XLua.CSObjectWrap
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_TryGetCullingParameters(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1) 
+                {
+                    UnityEngine.Rendering.ScriptableCullingParameters _cullingParameters;
+                    
+                        bool gen_ret = gen_to_be_invoked.TryGetCullingParameters( out _cullingParameters );
+                        LuaAPI.lua_pushboolean(L, gen_ret);
+                    translator.Push(L, _cullingParameters);
+                        
+                    
+                    
+                    
+                    return 2;
+                }
+                if(gen_param_count == 2&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 2)) 
+                {
+                    bool _stereoAware = LuaAPI.lua_toboolean(L, 2);
+                    UnityEngine.Rendering.ScriptableCullingParameters _cullingParameters;
+                    
+                        bool gen_ret = gen_to_be_invoked.TryGetCullingParameters( _stereoAware, out _cullingParameters );
+                        LuaAPI.lua_pushboolean(L, gen_ret);
+                    translator.Push(L, _cullingParameters);
+                        
+                    
+                    
+                    
+                    return 2;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Camera.TryGetCullingParameters!");
             
         }
         
@@ -1915,6 +2108,20 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
                 translator.Push(L, gen_to_be_invoked.cameraType);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_overrideSceneCullingMask(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
+                LuaAPI.lua_pushuint64(L, gen_to_be_invoked.overrideSceneCullingMask);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
@@ -2780,6 +2987,21 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
                 UnityEngine.CameraType gen_value;translator.Get(L, 2, out gen_value);
 				gen_to_be_invoked.cameraType = gen_value;
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_overrideSceneCullingMask(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Camera gen_to_be_invoked = (UnityEngine.Camera)translator.FastGetCSObj(L, 1);
+                gen_to_be_invoked.overrideSceneCullingMask = LuaAPI.lua_touint64(L, 2);
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

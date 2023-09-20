@@ -36,8 +36,8 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "loadType", _g_get_loadType);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "preloadAudioData", _g_get_preloadAudioData);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "ambisonic", _g_get_ambisonic);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "loadState", _g_get_loadState);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "loadInBackground", _g_get_loadInBackground);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "loadState", _g_get_loadState);
             
 			
 			
@@ -354,20 +354,6 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_loadState(RealStatePtr L)
-        {
-		    try {
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			
-                UnityEngine.AudioClip gen_to_be_invoked = (UnityEngine.AudioClip)translator.FastGetCSObj(L, 1);
-                translator.Push(L, gen_to_be_invoked.loadState);
-            } catch(System.Exception gen_e) {
-                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-            }
-            return 1;
-        }
-        
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_loadInBackground(RealStatePtr L)
         {
 		    try {
@@ -375,6 +361,20 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.AudioClip gen_to_be_invoked = (UnityEngine.AudioClip)translator.FastGetCSObj(L, 1);
                 LuaAPI.lua_pushboolean(L, gen_to_be_invoked.loadInBackground);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_loadState(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.AudioClip gen_to_be_invoked = (UnityEngine.AudioClip)translator.FastGetCSObj(L, 1);
+                translator.Push(L, gen_to_be_invoked.loadState);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }

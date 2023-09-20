@@ -37,7 +37,7 @@ public static class ArboxXluaGenConfig
                 typeof(ParticleSystem),
                 typeof(SkinnedMeshRenderer),
                 typeof(Renderer),
-                typeof(WWW),
+                //typeof(WWW),
                 typeof(WWWForm),
                 typeof(Light),
                 typeof(Mathf),
@@ -53,7 +53,7 @@ public static class ArboxXluaGenConfig
                 typeof(UnityEngine.Video.VideoClip),
                 typeof(UnityEngine.Video.VideoPlayer),
                 typeof(AudioClip),
-                typeof(AudioSource),
+                //typeof(AudioSource),
                 typeof(AudioListener),
                 typeof(Camera),
                 typeof(UnityEngine.Random),
@@ -112,6 +112,11 @@ public static class ArboxXluaGenConfig
                 new List<string>(){"UnityEngine.Security", "GetChainOfTrustValue"},
                 new List<string>(){"UnityEngine.CanvasRenderer", "onRequestRebuild"},
                 new List<string>(){"UnityEngine.Light", "areaSize"},
+    #if UNITY_ANDROID
+                new List<string>(){"UnityEngine.Light", "SetLightDirty"},
+                new List<string>(){"UnityEngine.Light", "shadowRadius"},
+                new List<string>(){"UnityEngine.Light", "shadowAngle"},
+    #endif
     #if UNITY_2017_1_OR_NEWER
                 new List<string>(){"UnityEngine.Light", "lightmapBakeType"},
                 new List<string>(){"UnityEngine.WWW", "MovieTexture"},

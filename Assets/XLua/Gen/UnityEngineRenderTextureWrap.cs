@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.RenderTexture);
-			Utils.BeginObjectRegister(type, L, translator, 0, 10, 19, 16);
+			Utils.BeginObjectRegister(type, L, translator, 0, 10, 21, 18);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetNativeDepthBufferPtr", _m_GetNativeDepthBufferPtr);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DiscardContents", _m_DiscardContents);
@@ -38,11 +38,13 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "width", _g_get_width);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "height", _g_get_height);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "dimension", _g_get_dimension);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "graphicsFormat", _g_get_graphicsFormat);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "useMipMap", _g_get_useMipMap);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "sRGB", _g_get_sRGB);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "format", _g_get_format);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "vrUsage", _g_get_vrUsage);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "memorylessMode", _g_get_memorylessMode);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "format", _g_get_format);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "stencilFormat", _g_get_stencilFormat);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "autoGenerateMips", _g_get_autoGenerateMips);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "volumeDepth", _g_get_volumeDepth);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "antiAliasing", _g_get_antiAliasing);
@@ -58,10 +60,12 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.SETTER_IDX, "width", _s_set_width);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "height", _s_set_height);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "dimension", _s_set_dimension);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "graphicsFormat", _s_set_graphicsFormat);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "useMipMap", _s_set_useMipMap);
-            Utils.RegisterFunc(L, Utils.SETTER_IDX, "format", _s_set_format);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "vrUsage", _s_set_vrUsage);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "memorylessMode", _s_set_memorylessMode);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "format", _s_set_format);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "stencilFormat", _s_set_stencilFormat);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "autoGenerateMips", _s_set_autoGenerateMips);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "volumeDepth", _s_set_volumeDepth);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "antiAliasing", _s_set_antiAliasing);
@@ -115,6 +119,18 @@ namespace XLua.CSObjectWrap
                     
 					return 1;
 				}
+				if(LuaAPI.lua_gettop(L) == 5 && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4) && translator.Assignable<UnityEngine.Experimental.Rendering.DefaultFormat>(L, 5))
+				{
+					int _width = LuaAPI.xlua_tointeger(L, 2);
+					int _height = LuaAPI.xlua_tointeger(L, 3);
+					int _depth = LuaAPI.xlua_tointeger(L, 4);
+					UnityEngine.Experimental.Rendering.DefaultFormat _format;translator.Get(L, 5, out _format);
+					
+					UnityEngine.RenderTexture gen_ret = new UnityEngine.RenderTexture(_width, _height, _depth, _format);
+					translator.Push(L, gen_ret);
+                    
+					return 1;
+				}
 				if(LuaAPI.lua_gettop(L) == 5 && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4) && translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 5))
 				{
 					int _width = LuaAPI.xlua_tointeger(L, 2);
@@ -123,6 +139,19 @@ namespace XLua.CSObjectWrap
 					UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 5, out _format);
 					
 					UnityEngine.RenderTexture gen_ret = new UnityEngine.RenderTexture(_width, _height, _depth, _format);
+					translator.Push(L, gen_ret);
+                    
+					return 1;
+				}
+				if(LuaAPI.lua_gettop(L) == 6 && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4) && translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 5) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6))
+				{
+					int _width = LuaAPI.xlua_tointeger(L, 2);
+					int _height = LuaAPI.xlua_tointeger(L, 3);
+					int _depth = LuaAPI.xlua_tointeger(L, 4);
+					UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 5, out _format);
+					int _mipCount = LuaAPI.xlua_tointeger(L, 6);
+					
+					UnityEngine.RenderTexture gen_ret = new UnityEngine.RenderTexture(_width, _height, _depth, _format, _mipCount);
 					translator.Push(L, gen_ret);
                     
 					return 1;
@@ -159,6 +188,19 @@ namespace XLua.CSObjectWrap
 					int _depth = LuaAPI.xlua_tointeger(L, 4);
 					
 					UnityEngine.RenderTexture gen_ret = new UnityEngine.RenderTexture(_width, _height, _depth);
+					translator.Push(L, gen_ret);
+                    
+					return 1;
+				}
+				if(LuaAPI.lua_gettop(L) == 6 && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4) && translator.Assignable<UnityEngine.RenderTextureFormat>(L, 5) && LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6))
+				{
+					int _width = LuaAPI.xlua_tointeger(L, 2);
+					int _height = LuaAPI.xlua_tointeger(L, 3);
+					int _depth = LuaAPI.xlua_tointeger(L, 4);
+					UnityEngine.RenderTextureFormat _format;translator.Get(L, 5, out _format);
+					int _mipCount = LuaAPI.xlua_tointeger(L, 6);
+					
+					UnityEngine.RenderTexture gen_ret = new UnityEngine.RenderTexture(_width, _height, _depth, _format, _mipCount);
 					translator.Push(L, gen_ret);
                     
 					return 1;
@@ -598,6 +640,20 @@ namespace XLua.CSObjectWrap
                     
                     return 1;
                 }
+                if(gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 4)) 
+                {
+                    int _width = LuaAPI.xlua_tointeger(L, 1);
+                    int _height = LuaAPI.xlua_tointeger(L, 2);
+                    int _depthBuffer = LuaAPI.xlua_tointeger(L, 3);
+                    UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 4, out _format);
+                    
+                        UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
                 if(gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.RenderTextureFormat>(L, 4)) 
                 {
                     int _width = LuaAPI.xlua_tointeger(L, 1);
@@ -606,6 +662,21 @@ namespace XLua.CSObjectWrap
                     UnityEngine.RenderTextureFormat _format;translator.Get(L, 4, out _format);
                     
                         UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _width = LuaAPI.xlua_tointeger(L, 1);
+                    int _height = LuaAPI.xlua_tointeger(L, 2);
+                    int _depthBuffer = LuaAPI.xlua_tointeger(L, 3);
+                    UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 4, out _format);
+                    int _antiAliasing = LuaAPI.xlua_tointeger(L, 5);
+                    
+                        UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format, _antiAliasing );
                         translator.Push(L, gen_ret);
                     
                     
@@ -621,6 +692,22 @@ namespace XLua.CSObjectWrap
                     UnityEngine.RenderTextureReadWrite _readWrite;translator.Get(L, 5, out _readWrite);
                     
                         UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format, _readWrite );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.RenderTextureMemoryless>(L, 6)) 
+                {
+                    int _width = LuaAPI.xlua_tointeger(L, 1);
+                    int _height = LuaAPI.xlua_tointeger(L, 2);
+                    int _depthBuffer = LuaAPI.xlua_tointeger(L, 3);
+                    UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 4, out _format);
+                    int _antiAliasing = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.RenderTextureMemoryless _memorylessMode;translator.Get(L, 6, out _memorylessMode);
+                    
+                        UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format, _antiAliasing, _memorylessMode );
                         translator.Push(L, gen_ret);
                     
                     
@@ -643,6 +730,23 @@ namespace XLua.CSObjectWrap
                     
                     return 1;
                 }
+                if(gen_param_count == 7&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.RenderTextureMemoryless>(L, 6)&& translator.Assignable<UnityEngine.VRTextureUsage>(L, 7)) 
+                {
+                    int _width = LuaAPI.xlua_tointeger(L, 1);
+                    int _height = LuaAPI.xlua_tointeger(L, 2);
+                    int _depthBuffer = LuaAPI.xlua_tointeger(L, 3);
+                    UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 4, out _format);
+                    int _antiAliasing = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.RenderTextureMemoryless _memorylessMode;translator.Get(L, 6, out _memorylessMode);
+                    UnityEngine.VRTextureUsage _vrUsage;translator.Get(L, 7, out _vrUsage);
+                    
+                        UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format, _antiAliasing, _memorylessMode, _vrUsage );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
                 if(gen_param_count == 7&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.RenderTextureFormat>(L, 4)&& translator.Assignable<UnityEngine.RenderTextureReadWrite>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& translator.Assignable<UnityEngine.RenderTextureMemoryless>(L, 7)) 
                 {
                     int _width = LuaAPI.xlua_tointeger(L, 1);
@@ -654,6 +758,24 @@ namespace XLua.CSObjectWrap
                     UnityEngine.RenderTextureMemoryless _memorylessMode;translator.Get(L, 7, out _memorylessMode);
                     
                         UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format, _readWrite, _antiAliasing, _memorylessMode );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 8&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 1)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<UnityEngine.Experimental.Rendering.GraphicsFormat>(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.RenderTextureMemoryless>(L, 6)&& translator.Assignable<UnityEngine.VRTextureUsage>(L, 7)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 8)) 
+                {
+                    int _width = LuaAPI.xlua_tointeger(L, 1);
+                    int _height = LuaAPI.xlua_tointeger(L, 2);
+                    int _depthBuffer = LuaAPI.xlua_tointeger(L, 3);
+                    UnityEngine.Experimental.Rendering.GraphicsFormat _format;translator.Get(L, 4, out _format);
+                    int _antiAliasing = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.RenderTextureMemoryless _memorylessMode;translator.Get(L, 6, out _memorylessMode);
+                    UnityEngine.VRTextureUsage _vrUsage;translator.Get(L, 7, out _vrUsage);
+                    bool _useDynamicScale = LuaAPI.lua_toboolean(L, 8);
+                    
+                        UnityEngine.RenderTexture gen_ret = UnityEngine.RenderTexture.GetTemporary( _width, _height, _depthBuffer, _format, _antiAliasing, _memorylessMode, _vrUsage, _useDynamicScale );
                         translator.Push(L, gen_ret);
                     
                     
@@ -752,6 +874,20 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_graphicsFormat(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
+                translator.Push(L, gen_to_be_invoked.graphicsFormat);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_useMipMap(RealStatePtr L)
         {
 		    try {
@@ -780,20 +916,6 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_format(RealStatePtr L)
-        {
-		    try {
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			
-                UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
-                translator.Push(L, gen_to_be_invoked.format);
-            } catch(System.Exception gen_e) {
-                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-            }
-            return 1;
-        }
-        
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_vrUsage(RealStatePtr L)
         {
 		    try {
@@ -815,6 +937,34 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
                 translator.Push(L, gen_to_be_invoked.memorylessMode);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_format(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
+                translator.Push(L, gen_to_be_invoked.format);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_stencilFormat(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
+                translator.Push(L, gen_to_be_invoked.stencilFormat);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
@@ -1036,13 +1186,14 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_useMipMap(RealStatePtr L)
+        static int _s_set_graphicsFormat(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			
                 UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
-                gen_to_be_invoked.useMipMap = LuaAPI.lua_toboolean(L, 2);
+                UnityEngine.Experimental.Rendering.GraphicsFormat gen_value;translator.Get(L, 2, out gen_value);
+				gen_to_be_invoked.graphicsFormat = gen_value;
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
@@ -1051,14 +1202,13 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_format(RealStatePtr L)
+        static int _s_set_useMipMap(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			
                 UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
-                UnityEngine.RenderTextureFormat gen_value;translator.Get(L, 2, out gen_value);
-				gen_to_be_invoked.format = gen_value;
+                gen_to_be_invoked.useMipMap = LuaAPI.lua_toboolean(L, 2);
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
@@ -1091,6 +1241,38 @@ namespace XLua.CSObjectWrap
                 UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
                 UnityEngine.RenderTextureMemoryless gen_value;translator.Get(L, 2, out gen_value);
 				gen_to_be_invoked.memorylessMode = gen_value;
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_format(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
+                UnityEngine.RenderTextureFormat gen_value;translator.Get(L, 2, out gen_value);
+				gen_to_be_invoked.format = gen_value;
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_stencilFormat(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.RenderTexture gen_to_be_invoked = (UnityEngine.RenderTexture)translator.FastGetCSObj(L, 1);
+                UnityEngine.Experimental.Rendering.GraphicsFormat gen_value;translator.Get(L, 2, out gen_value);
+				gen_to_be_invoked.stencilFormat = gen_value;
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

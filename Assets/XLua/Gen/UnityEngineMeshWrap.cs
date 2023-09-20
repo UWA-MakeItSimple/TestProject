@@ -21,8 +21,13 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.Mesh);
-			Utils.BeginObjectRegister(type, L, translator, 0, 37, 23, 19);
+			Utils.BeginObjectRegister(type, L, translator, 0, 56, 24, 19);
 			
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetIndexBufferParams", _m_SetIndexBufferParams);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetVertexAttribute", _m_GetVertexAttribute);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "HasVertexAttribute", _m_HasVertexAttribute);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetVertexAttributeDimension", _m_GetVertexAttributeDimension);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetVertexAttributeFormat", _m_GetVertexAttributeFormat);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetNativeVertexBufferPtr", _m_GetNativeVertexBufferPtr);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetNativeIndexBufferPtr", _m_GetNativeIndexBufferPtr);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ClearBlendShapes", _m_ClearBlendShapes);
@@ -32,6 +37,12 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBlendShapeFrameWeight", _m_GetBlendShapeFrameWeight);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBlendShapeFrameVertices", _m_GetBlendShapeFrameVertices);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddBlendShapeFrame", _m_AddBlendShapeFrame);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetBoneWeights", _m_SetBoneWeights);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetAllBoneWeights", _m_GetAllBoneWeights);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBonesPerVertex", _m_GetBonesPerVertex);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetSubMesh", _m_SetSubMesh);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetSubMesh", _m_GetSubMesh);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "MarkModified", _m_MarkModified);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetUVDistributionMetric", _m_GetUVDistributionMetric);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetVertices", _m_GetVertices);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetVertices", _m_SetVertices);
@@ -43,6 +54,8 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetColors", _m_SetColors);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetUVs", _m_SetUVs);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetUVs", _m_GetUVs);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetVertexAttributes", _m_GetVertexAttributes);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetVertexBufferParams", _m_SetVertexBufferParams);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetTriangles", _m_GetTriangles);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetIndices", _m_GetIndices);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetIndexStart", _m_GetIndexStart);
@@ -50,14 +63,20 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBaseVertex", _m_GetBaseVertex);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetTriangles", _m_SetTriangles);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetIndices", _m_SetIndices);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetSubMeshes", _m_SetSubMeshes);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBindposes", _m_GetBindposes);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBoneWeights", _m_GetBoneWeights);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Clear", _m_Clear);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RecalculateBounds", _m_RecalculateBounds);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RecalculateNormals", _m_RecalculateNormals);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RecalculateTangents", _m_RecalculateTangents);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RecalculateUVDistributionMetric", _m_RecalculateUVDistributionMetric);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RecalculateUVDistributionMetrics", _m_RecalculateUVDistributionMetrics);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "MarkDynamic", _m_MarkDynamic);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "UploadMeshData", _m_UploadMeshData);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Optimize", _m_Optimize);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "OptimizeIndexBuffers", _m_OptimizeIndexBuffers);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "OptimizeReorderVertexBuffer", _m_OptimizeReorderVertexBuffer);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetTopology", _m_GetTopology);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "CombineMeshes", _m_CombineMeshes);
 			
@@ -65,7 +84,6 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "indexFormat", _g_get_indexFormat);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "vertexBufferCount", _g_get_vertexBufferCount);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "blendShapeCount", _g_get_blendShapeCount);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "boneWeights", _g_get_boneWeights);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "bindposes", _g_get_bindposes);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "isReadable", _g_get_isReadable);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "vertexCount", _g_get_vertexCount);
@@ -84,10 +102,11 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "uv8", _g_get_uv8);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "colors", _g_get_colors);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "colors32", _g_get_colors32);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "vertexAttributeCount", _g_get_vertexAttributeCount);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "triangles", _g_get_triangles);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "boneWeights", _g_get_boneWeights);
             
 			Utils.RegisterFunc(L, Utils.SETTER_IDX, "indexFormat", _s_set_indexFormat);
-            Utils.RegisterFunc(L, Utils.SETTER_IDX, "boneWeights", _s_set_boneWeights);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "bindposes", _s_set_bindposes);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "subMeshCount", _s_set_subMeshCount);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "bounds", _s_set_bounds);
@@ -105,13 +124,17 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "colors", _s_set_colors);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "colors32", _s_set_colors32);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "triangles", _s_set_triangles);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "boneWeights", _s_set_boneWeights);
             
 			
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 1, 0, 0);
-			
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 4, 0, 0);
+			Utils.RegisterFunc(L, Utils.CLS_IDX, "AcquireReadOnlyMeshData", _m_AcquireReadOnlyMeshData_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "AllocateWritableMeshData", _m_AllocateWritableMeshData_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "ApplyAndDisposeWritableMeshData", _m_ApplyAndDisposeWritableMeshData_xlua_st_);
+            
 			
             
 			
@@ -149,6 +172,151 @@ namespace XLua.CSObjectWrap
         
         
         
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetIndexBufferParams(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    int _indexCount = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Rendering.IndexFormat _format;translator.Get(L, 3, out _format);
+                    
+                    gen_to_be_invoked.SetIndexBufferParams( _indexCount, _format );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetVertexAttribute(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    int _index = LuaAPI.xlua_tointeger(L, 2);
+                    
+                        UnityEngine.Rendering.VertexAttributeDescriptor gen_ret = gen_to_be_invoked.GetVertexAttribute( _index );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_HasVertexAttribute(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    UnityEngine.Rendering.VertexAttribute _attr;translator.Get(L, 2, out _attr);
+                    
+                        bool gen_ret = gen_to_be_invoked.HasVertexAttribute( _attr );
+                        LuaAPI.lua_pushboolean(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetVertexAttributeDimension(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    UnityEngine.Rendering.VertexAttribute _attr;translator.Get(L, 2, out _attr);
+                    
+                        int gen_ret = gen_to_be_invoked.GetVertexAttributeDimension( _attr );
+                        LuaAPI.xlua_pushinteger(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetVertexAttributeFormat(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    UnityEngine.Rendering.VertexAttribute _attr;translator.Get(L, 2, out _attr);
+                    
+                        UnityEngine.Rendering.VertexAttributeFormat gen_ret = gen_to_be_invoked.GetVertexAttributeFormat( _attr );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_GetNativeVertexBufferPtr(RealStatePtr L)
@@ -416,6 +584,192 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetBoneWeights(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    Unity.Collections.NativeArray<byte> _bonesPerVertex;translator.Get(L, 2, out _bonesPerVertex);
+                    Unity.Collections.NativeArray<UnityEngine.BoneWeight1> _weights;translator.Get(L, 3, out _weights);
+                    
+                    gen_to_be_invoked.SetBoneWeights( _bonesPerVertex, _weights );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetAllBoneWeights(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                        Unity.Collections.NativeArray<UnityEngine.BoneWeight1> gen_ret = gen_to_be_invoked.GetAllBoneWeights(  );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetBonesPerVertex(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                        Unity.Collections.NativeArray<byte> gen_ret = gen_to_be_invoked.GetBonesPerVertex(  );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetSubMesh(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Rendering.SubMeshDescriptor>(L, 3)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 4)) 
+                {
+                    int _index = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Rendering.SubMeshDescriptor _desc;translator.Get(L, 3, out _desc);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 4, out _flags);
+                    
+                    gen_to_be_invoked.SetSubMesh( _index, _desc, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Rendering.SubMeshDescriptor>(L, 3)) 
+                {
+                    int _index = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Rendering.SubMeshDescriptor _desc;translator.Get(L, 3, out _desc);
+                    
+                    gen_to_be_invoked.SetSubMesh( _index, _desc );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetSubMesh!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetSubMesh(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    int _index = LuaAPI.xlua_tointeger(L, 2);
+                    
+                        UnityEngine.Rendering.SubMeshDescriptor gen_ret = gen_to_be_invoked.GetSubMesh( _index );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_MarkModified(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                    gen_to_be_invoked.MarkModified(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_GetUVDistributionMetric(RealStatePtr L)
         {
 		    try {
@@ -483,7 +837,9 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
             
             
-                
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 2&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 2)) 
                 {
                     System.Collections.Generic.List<UnityEngine.Vector3> _inVertices = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
                     
@@ -493,10 +849,72 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)) 
+                {
+                    UnityEngine.Vector3[] _inVertices = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    
+                    gen_to_be_invoked.SetVertices( _inVertices );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Vector3> _inVertices = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetVertices( _inVertices, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3[] _inVertices = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetVertices( _inVertices, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Vector3> _inVertices = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetVertices( _inVertices, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    UnityEngine.Vector3[] _inVertices = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetVertices( _inVertices, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
                 
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetVertices!");
             
         }
         
@@ -539,7 +957,9 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
             
             
-                
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 2&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 2)) 
                 {
                     System.Collections.Generic.List<UnityEngine.Vector3> _inNormals = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
                     
@@ -549,10 +969,72 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)) 
+                {
+                    UnityEngine.Vector3[] _inNormals = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    
+                    gen_to_be_invoked.SetNormals( _inNormals );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Vector3> _inNormals = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetNormals( _inNormals, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3[] _inNormals = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetNormals( _inNormals, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Vector3> _inNormals = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetNormals( _inNormals, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    UnityEngine.Vector3[] _inNormals = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetNormals( _inNormals, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
                 
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetNormals!");
             
         }
         
@@ -595,7 +1077,9 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
             
             
-                
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 2&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector4>>(L, 2)) 
                 {
                     System.Collections.Generic.List<UnityEngine.Vector4> _inTangents = (System.Collections.Generic.List<UnityEngine.Vector4>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector4>));
                     
@@ -605,10 +1089,72 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Vector4[]>(L, 2)) 
+                {
+                    UnityEngine.Vector4[] _inTangents = (UnityEngine.Vector4[])translator.GetObject(L, 2, typeof(UnityEngine.Vector4[]));
+                    
+                    gen_to_be_invoked.SetTangents( _inTangents );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector4>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Vector4> _inTangents = (System.Collections.Generic.List<UnityEngine.Vector4>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector4>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetTangents( _inTangents, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<UnityEngine.Vector4[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector4[] _inTangents = (UnityEngine.Vector4[])translator.GetObject(L, 2, typeof(UnityEngine.Vector4[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetTangents( _inTangents, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector4>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Vector4> _inTangents = (System.Collections.Generic.List<UnityEngine.Vector4>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Vector4>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetTangents( _inTangents, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<UnityEngine.Vector4[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    UnityEngine.Vector4[] _inTangents = (UnityEngine.Vector4[])translator.GetObject(L, 2, typeof(UnityEngine.Vector4[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetTangents( _inTangents, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
                 
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetTangents!");
             
         }
         
@@ -677,11 +1223,131 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Color[]>(L, 2)) 
+                {
+                    UnityEngine.Color[] _inColors = (UnityEngine.Color[])translator.GetObject(L, 2, typeof(UnityEngine.Color[]));
+                    
+                    gen_to_be_invoked.SetColors( _inColors );
+                    
+                    
+                    
+                    return 0;
+                }
                 if(gen_param_count == 2&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Color32>>(L, 2)) 
                 {
                     System.Collections.Generic.List<UnityEngine.Color32> _inColors = (System.Collections.Generic.List<UnityEngine.Color32>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Color32>));
                     
                     gen_to_be_invoked.SetColors( _inColors );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Color32[]>(L, 2)) 
+                {
+                    UnityEngine.Color32[] _inColors = (UnityEngine.Color32[])translator.GetObject(L, 2, typeof(UnityEngine.Color32[]));
+                    
+                    gen_to_be_invoked.SetColors( _inColors );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Color>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Color> _inColors = (System.Collections.Generic.List<UnityEngine.Color>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Color>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<UnityEngine.Color[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Color[] _inColors = (UnityEngine.Color[])translator.GetObject(L, 2, typeof(UnityEngine.Color[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Color32>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Color32> _inColors = (System.Collections.Generic.List<UnityEngine.Color32>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Color32>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<UnityEngine.Color32[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Color32[] _inColors = (UnityEngine.Color32[])translator.GetObject(L, 2, typeof(UnityEngine.Color32[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Color>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Color> _inColors = (System.Collections.Generic.List<UnityEngine.Color>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Color>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<UnityEngine.Color[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    UnityEngine.Color[] _inColors = (UnityEngine.Color[])translator.GetObject(L, 2, typeof(UnityEngine.Color[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Color32>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Color32> _inColors = (System.Collections.Generic.List<UnityEngine.Color32>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Color32>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<UnityEngine.Color32[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    UnityEngine.Color32[] _inColors = (UnityEngine.Color32[])translator.GetObject(L, 2, typeof(UnityEngine.Color32[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _length = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetColors( _inColors, _start, _length, _flags );
                     
                     
                     
@@ -737,6 +1403,201 @@ namespace XLua.CSObjectWrap
                     System.Collections.Generic.List<UnityEngine.Vector4> _uvs = (System.Collections.Generic.List<UnityEngine.Vector4>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector4>));
                     
                     gen_to_be_invoked.SetUVs( _channel, _uvs );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector2[]>(L, 3)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector2[] _uvs = (UnityEngine.Vector2[])translator.GetObject(L, 3, typeof(UnityEngine.Vector2[]));
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3[]>(L, 3)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector3[] _uvs = (UnityEngine.Vector3[])translator.GetObject(L, 3, typeof(UnityEngine.Vector3[]));
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector4[]>(L, 3)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector4[] _uvs = (UnityEngine.Vector4[])translator.GetObject(L, 3, typeof(UnityEngine.Vector4[]));
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector2>>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    System.Collections.Generic.List<UnityEngine.Vector2> _uvs = (System.Collections.Generic.List<UnityEngine.Vector2>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector2>));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    System.Collections.Generic.List<UnityEngine.Vector3> _uvs = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector4>>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    System.Collections.Generic.List<UnityEngine.Vector4> _uvs = (System.Collections.Generic.List<UnityEngine.Vector4>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector4>));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector2[]>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector2[] _uvs = (UnityEngine.Vector2[])translator.GetObject(L, 3, typeof(UnityEngine.Vector2[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3[]>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector3[] _uvs = (UnityEngine.Vector3[])translator.GetObject(L, 3, typeof(UnityEngine.Vector3[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector4[]>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector4[] _uvs = (UnityEngine.Vector4[])translator.GetObject(L, 3, typeof(UnityEngine.Vector4[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector2>>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 6)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    System.Collections.Generic.List<UnityEngine.Vector2> _uvs = (System.Collections.Generic.List<UnityEngine.Vector2>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector2>));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 6, out _flags);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector3>>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 6)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    System.Collections.Generic.List<UnityEngine.Vector3> _uvs = (System.Collections.Generic.List<UnityEngine.Vector3>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector3>));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 6, out _flags);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Vector4>>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 6)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    System.Collections.Generic.List<UnityEngine.Vector4> _uvs = (System.Collections.Generic.List<UnityEngine.Vector4>)translator.GetObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector4>));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 6, out _flags);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector2[]>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 6)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector2[] _uvs = (UnityEngine.Vector2[])translator.GetObject(L, 3, typeof(UnityEngine.Vector2[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 6, out _flags);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3[]>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 6)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector3[] _uvs = (UnityEngine.Vector3[])translator.GetObject(L, 3, typeof(UnityEngine.Vector3[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 6, out _flags);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector4[]>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 6)) 
+                {
+                    int _channel = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Vector4[] _uvs = (UnityEngine.Vector4[])translator.GetObject(L, 3, typeof(UnityEngine.Vector4[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 4);
+                    int _length = LuaAPI.xlua_tointeger(L, 5);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 6, out _flags);
+                    
+                    gen_to_be_invoked.SetUVs( _channel, _uvs, _start, _length, _flags );
                     
                     
                     
@@ -807,6 +1668,273 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetVertexAttributes(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1) 
+                {
+                    
+                        UnityEngine.Rendering.VertexAttributeDescriptor[] gen_ret = gen_to_be_invoked.GetVertexAttributes(  );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Rendering.VertexAttributeDescriptor[]>(L, 2)) 
+                {
+                    UnityEngine.Rendering.VertexAttributeDescriptor[] _attributes = (UnityEngine.Rendering.VertexAttributeDescriptor[])translator.GetObject(L, 2, typeof(UnityEngine.Rendering.VertexAttributeDescriptor[]));
+                    
+                        int gen_ret = gen_to_be_invoked.GetVertexAttributes( _attributes );
+                        LuaAPI.xlua_pushinteger(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 2&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Rendering.VertexAttributeDescriptor>>(L, 2)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Rendering.VertexAttributeDescriptor> _attributes = (System.Collections.Generic.List<UnityEngine.Rendering.VertexAttributeDescriptor>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.VertexAttributeDescriptor>));
+                    
+                        int gen_ret = gen_to_be_invoked.GetVertexAttributes( _attributes );
+                        LuaAPI.xlua_pushinteger(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.GetVertexAttributes!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetVertexBufferParams(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count >= 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& (LuaTypes.LUA_TNONE == LuaAPI.lua_type(L, 3) || translator.Assignable<UnityEngine.Rendering.VertexAttributeDescriptor>(L, 3))) 
+                {
+                    int _vertexCount = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.Rendering.VertexAttributeDescriptor[] _attributes = translator.GetParams<UnityEngine.Rendering.VertexAttributeDescriptor>(L, 3);
+                    
+                    gen_to_be_invoked.SetVertexBufferParams( _vertexCount, _attributes );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<Unity.Collections.NativeArray<UnityEngine.Rendering.VertexAttributeDescriptor>>(L, 3)) 
+                {
+                    int _vertexCount = LuaAPI.xlua_tointeger(L, 2);
+                    Unity.Collections.NativeArray<UnityEngine.Rendering.VertexAttributeDescriptor> _attributes;translator.Get(L, 3, out _attributes);
+                    
+                    gen_to_be_invoked.SetVertexBufferParams( _vertexCount, _attributes );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetVertexBufferParams!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_AcquireReadOnlyMeshData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1&& translator.Assignable<UnityEngine.Mesh>(L, 1)) 
+                {
+                    UnityEngine.Mesh _mesh = (UnityEngine.Mesh)translator.GetObject(L, 1, typeof(UnityEngine.Mesh));
+                    
+                        UnityEngine.Mesh.MeshDataArray gen_ret = UnityEngine.Mesh.AcquireReadOnlyMeshData( _mesh );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 1&& translator.Assignable<UnityEngine.Mesh[]>(L, 1)) 
+                {
+                    UnityEngine.Mesh[] _meshes = (UnityEngine.Mesh[])translator.GetObject(L, 1, typeof(UnityEngine.Mesh[]));
+                    
+                        UnityEngine.Mesh.MeshDataArray gen_ret = UnityEngine.Mesh.AcquireReadOnlyMeshData( _meshes );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 1&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Mesh>>(L, 1)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Mesh> _meshes = (System.Collections.Generic.List<UnityEngine.Mesh>)translator.GetObject(L, 1, typeof(System.Collections.Generic.List<UnityEngine.Mesh>));
+                    
+                        UnityEngine.Mesh.MeshDataArray gen_ret = UnityEngine.Mesh.AcquireReadOnlyMeshData( _meshes );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.AcquireReadOnlyMeshData!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_AllocateWritableMeshData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    int _meshCount = LuaAPI.xlua_tointeger(L, 1);
+                    
+                        UnityEngine.Mesh.MeshDataArray gen_ret = UnityEngine.Mesh.AllocateWritableMeshData( _meshCount );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_ApplyAndDisposeWritableMeshData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 3&& translator.Assignable<UnityEngine.Mesh.MeshDataArray>(L, 1)&& translator.Assignable<UnityEngine.Mesh>(L, 2)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 3)) 
+                {
+                    UnityEngine.Mesh.MeshDataArray _data;translator.Get(L, 1, out _data);
+                    UnityEngine.Mesh _mesh = (UnityEngine.Mesh)translator.GetObject(L, 2, typeof(UnityEngine.Mesh));
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 3, out _flags);
+                    
+                    UnityEngine.Mesh.ApplyAndDisposeWritableMeshData( _data, _mesh, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Mesh.MeshDataArray>(L, 1)&& translator.Assignable<UnityEngine.Mesh>(L, 2)) 
+                {
+                    UnityEngine.Mesh.MeshDataArray _data;translator.Get(L, 1, out _data);
+                    UnityEngine.Mesh _mesh = (UnityEngine.Mesh)translator.GetObject(L, 2, typeof(UnityEngine.Mesh));
+                    
+                    UnityEngine.Mesh.ApplyAndDisposeWritableMeshData( _data, _mesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<UnityEngine.Mesh.MeshDataArray>(L, 1)&& translator.Assignable<UnityEngine.Mesh[]>(L, 2)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 3)) 
+                {
+                    UnityEngine.Mesh.MeshDataArray _data;translator.Get(L, 1, out _data);
+                    UnityEngine.Mesh[] _meshes = (UnityEngine.Mesh[])translator.GetObject(L, 2, typeof(UnityEngine.Mesh[]));
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 3, out _flags);
+                    
+                    UnityEngine.Mesh.ApplyAndDisposeWritableMeshData( _data, _meshes, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Mesh.MeshDataArray>(L, 1)&& translator.Assignable<UnityEngine.Mesh[]>(L, 2)) 
+                {
+                    UnityEngine.Mesh.MeshDataArray _data;translator.Get(L, 1, out _data);
+                    UnityEngine.Mesh[] _meshes = (UnityEngine.Mesh[])translator.GetObject(L, 2, typeof(UnityEngine.Mesh[]));
+                    
+                    UnityEngine.Mesh.ApplyAndDisposeWritableMeshData( _data, _meshes );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<UnityEngine.Mesh.MeshDataArray>(L, 1)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Mesh>>(L, 2)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 3)) 
+                {
+                    UnityEngine.Mesh.MeshDataArray _data;translator.Get(L, 1, out _data);
+                    System.Collections.Generic.List<UnityEngine.Mesh> _meshes = (System.Collections.Generic.List<UnityEngine.Mesh>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Mesh>));
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 3, out _flags);
+                    
+                    UnityEngine.Mesh.ApplyAndDisposeWritableMeshData( _data, _meshes, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Mesh.MeshDataArray>(L, 1)&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Mesh>>(L, 2)) 
+                {
+                    UnityEngine.Mesh.MeshDataArray _data;translator.Get(L, 1, out _data);
+                    System.Collections.Generic.List<UnityEngine.Mesh> _meshes = (System.Collections.Generic.List<UnityEngine.Mesh>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Mesh>));
+                    
+                    UnityEngine.Mesh.ApplyAndDisposeWritableMeshData( _data, _meshes );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.ApplyAndDisposeWritableMeshData!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_GetTriangles(RealStatePtr L)
         {
 		    try {
@@ -860,6 +1988,29 @@ namespace XLua.CSObjectWrap
                     bool _applyBaseVertex = LuaAPI.lua_toboolean(L, 4);
                     
                     gen_to_be_invoked.GetTriangles( _triangles, _submesh, _applyBaseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    bool _applyBaseVertex = LuaAPI.lua_toboolean(L, 4);
+                    
+                    gen_to_be_invoked.GetTriangles( _triangles, _submesh, _applyBaseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    
+                    gen_to_be_invoked.GetTriangles( _triangles, _submesh );
                     
                     
                     
@@ -928,6 +2079,29 @@ namespace XLua.CSObjectWrap
                     bool _applyBaseVertex = LuaAPI.lua_toboolean(L, 4);
                     
                     gen_to_be_invoked.GetIndices( _indices, _submesh, _applyBaseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    bool _applyBaseVertex = LuaAPI.lua_toboolean(L, 4);
+                    
+                    gen_to_be_invoked.GetIndices( _indices, _submesh, _applyBaseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    
+                    gen_to_be_invoked.GetIndices( _indices, _submesh );
                     
                     
                     
@@ -1101,6 +2275,42 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 5&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    ushort[] _triangles = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 4);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    ushort[] _triangles = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 4);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    ushort[] _triangles = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
                 if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
                 {
                     System.Collections.Generic.List<int> _triangles = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
@@ -1109,6 +2319,210 @@ namespace XLua.CSObjectWrap
                     int _baseVertex = LuaAPI.xlua_tointeger(L, 5);
                     
                     gen_to_be_invoked.SetTriangles( _triangles, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 4);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 4);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _submesh = LuaAPI.xlua_tointeger(L, 3);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<int[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 7)) 
+                {
+                    int[] _triangles = (int[])translator.GetObject(L, 2, typeof(int[]));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 7);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<int[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    int[] _triangles = (int[])translator.GetObject(L, 2, typeof(int[]));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<int[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int[] _triangles = (int[])translator.GetObject(L, 2, typeof(int[]));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 7)) 
+                {
+                    ushort[] _triangles = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 7);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    ushort[] _triangles = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    ushort[] _triangles = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 7)) 
+                {
+                    System.Collections.Generic.List<int> _triangles = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 7);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    System.Collections.Generic.List<int> _triangles = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    System.Collections.Generic.List<int> _triangles = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 7)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 7);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 6);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    System.Collections.Generic.List<ushort> _triangles = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _trianglesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _trianglesLength = LuaAPI.xlua_tointeger(L, 4);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetTriangles( _triangles, _trianglesStart, _trianglesLength, _submesh );
                     
                     
                     
@@ -1175,12 +2589,423 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 6&& translator.Assignable<ushort[]>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    ushort[] _indices = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 5);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<ushort[]>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 5)) 
+                {
+                    ushort[] _indices = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 5);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<ushort[]>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    ushort[] _indices = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    System.Collections.Generic.List<int> _indices = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 5);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 5)) 
+                {
+                    System.Collections.Generic.List<int> _indices = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 5);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<int> _indices = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 5);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 5)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 5);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& translator.Assignable<UnityEngine.MeshTopology>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 3, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 8&& translator.Assignable<int[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 8)) 
+                {
+                    int[] _indices = (int[])translator.GetObject(L, 2, typeof(int[]));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 8);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<int[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)) 
+                {
+                    int[] _indices = (int[])translator.GetObject(L, 2, typeof(int[]));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<int[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    int[] _indices = (int[])translator.GetObject(L, 2, typeof(int[]));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 8&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 8)) 
+                {
+                    ushort[] _indices = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 8);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)) 
+                {
+                    ushort[] _indices = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<ushort[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    ushort[] _indices = (ushort[])translator.GetObject(L, 2, typeof(ushort[]));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 8&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 8)) 
+                {
+                    System.Collections.Generic.List<int> _indices = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 8);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)) 
+                {
+                    System.Collections.Generic.List<int> _indices = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<System.Collections.Generic.List<int>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    System.Collections.Generic.List<int> _indices = (System.Collections.Generic.List<int>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<int>));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 8&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 8)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    int _baseVertex = LuaAPI.xlua_tointeger(L, 8);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds, _baseVertex );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 7&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    bool _calculateBounds = LuaAPI.lua_toboolean(L, 7);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh, _calculateBounds );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 6&& translator.Assignable<System.Collections.Generic.List<ushort>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.MeshTopology>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    System.Collections.Generic.List<ushort> _indices = (System.Collections.Generic.List<ushort>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<ushort>));
+                    int _indicesStart = LuaAPI.xlua_tointeger(L, 3);
+                    int _indicesLength = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.MeshTopology _topology;translator.Get(L, 5, out _topology);
+                    int _submesh = LuaAPI.xlua_tointeger(L, 6);
+                    
+                    gen_to_be_invoked.SetIndices( _indices, _indicesStart, _indicesLength, _topology, _submesh );
+                    
+                    
+                    
+                    return 0;
+                }
                 
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
             
             return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetIndices!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetSubMeshes(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 3&& translator.Assignable<UnityEngine.Rendering.SubMeshDescriptor[]>(L, 2)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 3)) 
+                {
+                    UnityEngine.Rendering.SubMeshDescriptor[] _desc = (UnityEngine.Rendering.SubMeshDescriptor[])translator.GetObject(L, 2, typeof(UnityEngine.Rendering.SubMeshDescriptor[]));
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 3, out _flags);
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Rendering.SubMeshDescriptor[]>(L, 2)) 
+                {
+                    UnityEngine.Rendering.SubMeshDescriptor[] _desc = (UnityEngine.Rendering.SubMeshDescriptor[])translator.GetObject(L, 2, typeof(UnityEngine.Rendering.SubMeshDescriptor[]));
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>>(L, 2)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 3)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor> _desc = (System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>));
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 3, out _flags);
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>>(L, 2)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor> _desc = (System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>));
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<UnityEngine.Rendering.SubMeshDescriptor[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    UnityEngine.Rendering.SubMeshDescriptor[] _desc = (UnityEngine.Rendering.SubMeshDescriptor[])translator.GetObject(L, 2, typeof(UnityEngine.Rendering.SubMeshDescriptor[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _count = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc, _start, _count, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<UnityEngine.Rendering.SubMeshDescriptor[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Rendering.SubMeshDescriptor[] _desc = (UnityEngine.Rendering.SubMeshDescriptor[])translator.GetObject(L, 2, typeof(UnityEngine.Rendering.SubMeshDescriptor[]));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _count = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc, _start, _count );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 5)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor> _desc = (System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _count = LuaAPI.xlua_tointeger(L, 4);
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 5, out _flags);
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc, _start, _count, _flags );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& translator.Assignable<System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor> _desc = (System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.SubMeshDescriptor>));
+                    int _start = LuaAPI.xlua_tointeger(L, 3);
+                    int _count = LuaAPI.xlua_tointeger(L, 4);
+                    
+                    gen_to_be_invoked.SetSubMeshes( _desc, _start, _count );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.SetSubMeshes!");
             
         }
         
@@ -1292,10 +3117,22 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
             
             
-                
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1) 
                 {
                     
                     gen_to_be_invoked.RecalculateBounds(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 2)) 
+                {
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 2, out _flags);
+                    
+                    gen_to_be_invoked.RecalculateBounds( _flags );
                     
                     
                     
@@ -1305,6 +3142,8 @@ namespace XLua.CSObjectWrap
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.RecalculateBounds!");
             
         }
         
@@ -1319,10 +3158,22 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
             
             
-                
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1) 
                 {
                     
                     gen_to_be_invoked.RecalculateNormals(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 2)) 
+                {
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 2, out _flags);
+                    
+                    gen_to_be_invoked.RecalculateNormals( _flags );
                     
                     
                     
@@ -1332,6 +3183,8 @@ namespace XLua.CSObjectWrap
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.RecalculateNormals!");
             
         }
         
@@ -1346,10 +3199,22 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
             
             
-                
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1) 
                 {
                     
                     gen_to_be_invoked.RecalculateTangents(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& translator.Assignable<UnityEngine.Rendering.MeshUpdateFlags>(L, 2)) 
+                {
+                    UnityEngine.Rendering.MeshUpdateFlags _flags;translator.Get(L, 2, out _flags);
+                    
+                    gen_to_be_invoked.RecalculateTangents( _flags );
                     
                     
                     
@@ -1359,6 +3224,92 @@ namespace XLua.CSObjectWrap
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.RecalculateTangents!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_RecalculateUVDistributionMetric(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    int _uvSetIndex = LuaAPI.xlua_tointeger(L, 2);
+                    float _uvAreaThreshold = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                    gen_to_be_invoked.RecalculateUVDistributionMetric( _uvSetIndex, _uvAreaThreshold );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)) 
+                {
+                    int _uvSetIndex = LuaAPI.xlua_tointeger(L, 2);
+                    
+                    gen_to_be_invoked.RecalculateUVDistributionMetric( _uvSetIndex );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.RecalculateUVDistributionMetric!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_RecalculateUVDistributionMetrics(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)) 
+                {
+                    float _uvAreaThreshold = (float)LuaAPI.lua_tonumber(L, 2);
+                    
+                    gen_to_be_invoked.RecalculateUVDistributionMetrics( _uvAreaThreshold );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 1) 
+                {
+                    
+                    gen_to_be_invoked.RecalculateUVDistributionMetrics(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Mesh.RecalculateUVDistributionMetrics!");
             
         }
         
@@ -1405,6 +3356,87 @@ namespace XLua.CSObjectWrap
                     bool _markNoLongerReadable = LuaAPI.lua_toboolean(L, 2);
                     
                     gen_to_be_invoked.UploadMeshData( _markNoLongerReadable );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_Optimize(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                    gen_to_be_invoked.Optimize(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_OptimizeIndexBuffers(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                    gen_to_be_invoked.OptimizeIndexBuffers(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_OptimizeReorderVertexBuffer(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                    gen_to_be_invoked.OptimizeReorderVertexBuffer(  );
                     
                     
                     
@@ -1553,20 +3585,6 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
                 LuaAPI.xlua_pushinteger(L, gen_to_be_invoked.blendShapeCount);
-            } catch(System.Exception gen_e) {
-                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-            }
-            return 1;
-        }
-        
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_boneWeights(RealStatePtr L)
-        {
-		    try {
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			
-                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
-                translator.Push(L, gen_to_be_invoked.boneWeights);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
@@ -1826,6 +3844,20 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_vertexAttributeCount(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+                LuaAPI.xlua_pushinteger(L, gen_to_be_invoked.vertexAttributeCount);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_triangles(RealStatePtr L)
         {
 		    try {
@@ -1833,6 +3865,20 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
                 translator.Push(L, gen_to_be_invoked.triangles);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_boneWeights(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+                translator.Push(L, gen_to_be_invoked.boneWeights);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
@@ -1850,21 +3896,6 @@ namespace XLua.CSObjectWrap
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
                 UnityEngine.Rendering.IndexFormat gen_value;translator.Get(L, 2, out gen_value);
 				gen_to_be_invoked.indexFormat = gen_value;
-            
-            } catch(System.Exception gen_e) {
-                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-            }
-            return 0;
-        }
-        
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_boneWeights(RealStatePtr L)
-        {
-		    try {
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			
-                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
-                gen_to_be_invoked.boneWeights = (UnityEngine.BoneWeight[])translator.GetObject(L, 2, typeof(UnityEngine.BoneWeight[]));
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
@@ -2121,6 +4152,21 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
                 gen_to_be_invoked.triangles = (int[])translator.GetObject(L, 2, typeof(int[]));
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_boneWeights(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Mesh gen_to_be_invoked = (UnityEngine.Mesh)translator.FastGetCSObj(L, 1);
+                gen_to_be_invoked.boneWeights = (UnityEngine.BoneWeight[])translator.GetObject(L, 2, typeof(UnityEngine.BoneWeight[]));
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

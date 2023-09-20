@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.Animator);
-			Utils.BeginObjectRegister(type, L, translator, 0, 55, 43, 19);
+			Utils.BeginObjectRegister(type, L, translator, 0, 55, 44, 20);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetFloat", _m_GetFloat);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetFloat", _m_SetFloat);
@@ -122,7 +122,8 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "rightFeetBottomHeight", _g_get_rightFeetBottomHeight);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "logWarnings", _g_get_logWarnings);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "fireEvents", _g_get_fireEvents);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "keepAnimatorControllerStateOnDisable", _g_get_keepAnimatorControllerStateOnDisable);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "keepAnimatorStateOnDisable", _g_get_keepAnimatorStateOnDisable);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "writeDefaultValuesOnDisable", _g_get_writeDefaultValuesOnDisable);
             
 			Utils.RegisterFunc(L, Utils.SETTER_IDX, "rootPosition", _s_set_rootPosition);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "rootRotation", _s_set_rootRotation);
@@ -142,7 +143,8 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "layersAffectMassCenter", _s_set_layersAffectMassCenter);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "logWarnings", _s_set_logWarnings);
             Utils.RegisterFunc(L, Utils.SETTER_IDX, "fireEvents", _s_set_fireEvents);
-            Utils.RegisterFunc(L, Utils.SETTER_IDX, "keepAnimatorControllerStateOnDisable", _s_set_keepAnimatorControllerStateOnDisable);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "keepAnimatorStateOnDisable", _s_set_keepAnimatorStateOnDisable);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "writeDefaultValuesOnDisable", _s_set_writeDefaultValuesOnDisable);
             
 			
 			Utils.EndObjectRegister(type, L, translator, null, null,
@@ -1573,6 +1575,22 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 8&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& translator.Assignable<UnityEngine.Quaternion>(L, 3)&& translator.Assignable<UnityEngine.AvatarTarget>(L, 4)&& translator.Assignable<UnityEngine.MatchTargetWeightMask>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 7)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 8)) 
+                {
+                    UnityEngine.Vector3 _matchPosition;translator.Get(L, 2, out _matchPosition);
+                    UnityEngine.Quaternion _matchRotation;translator.Get(L, 3, out _matchRotation);
+                    UnityEngine.AvatarTarget _targetBodyPart;translator.Get(L, 4, out _targetBodyPart);
+                    UnityEngine.MatchTargetWeightMask _weightMask;translator.Get(L, 5, out _weightMask);
+                    float _startNormalizedTime = (float)LuaAPI.lua_tonumber(L, 6);
+                    float _targetNormalizedTime = (float)LuaAPI.lua_tonumber(L, 7);
+                    bool _completeMatch = LuaAPI.lua_toboolean(L, 8);
+                    
+                    gen_to_be_invoked.MatchTarget( _matchPosition, _matchRotation, _targetBodyPart, _weightMask, _startNormalizedTime, _targetNormalizedTime, _completeMatch );
+                    
+                    
+                    
+                    return 0;
+                }
                 
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
@@ -2966,13 +2984,27 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_keepAnimatorControllerStateOnDisable(RealStatePtr L)
+        static int _g_get_keepAnimatorStateOnDisable(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			
                 UnityEngine.Animator gen_to_be_invoked = (UnityEngine.Animator)translator.FastGetCSObj(L, 1);
-                LuaAPI.lua_pushboolean(L, gen_to_be_invoked.keepAnimatorControllerStateOnDisable);
+                LuaAPI.lua_pushboolean(L, gen_to_be_invoked.keepAnimatorStateOnDisable);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_writeDefaultValuesOnDisable(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Animator gen_to_be_invoked = (UnityEngine.Animator)translator.FastGetCSObj(L, 1);
+                LuaAPI.lua_pushboolean(L, gen_to_be_invoked.writeDefaultValuesOnDisable);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
@@ -3258,13 +3290,28 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_keepAnimatorControllerStateOnDisable(RealStatePtr L)
+        static int _s_set_keepAnimatorStateOnDisable(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			
                 UnityEngine.Animator gen_to_be_invoked = (UnityEngine.Animator)translator.FastGetCSObj(L, 1);
-                gen_to_be_invoked.keepAnimatorControllerStateOnDisable = LuaAPI.lua_toboolean(L, 2);
+                gen_to_be_invoked.keepAnimatorStateOnDisable = LuaAPI.lua_toboolean(L, 2);
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_writeDefaultValuesOnDisable(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Animator gen_to_be_invoked = (UnityEngine.Animator)translator.FastGetCSObj(L, 1);
+                gen_to_be_invoked.writeDefaultValuesOnDisable = LuaAPI.lua_toboolean(L, 2);
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

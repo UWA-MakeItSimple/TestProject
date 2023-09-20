@@ -16,29 +16,25 @@ namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
     
-    public class UnityEngineForceModeWrap
+    public class TutorialTestEnumWrap
     {
 		public static void __Register(RealStatePtr L)
         {
 		    ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-		    Utils.BeginObjectRegister(typeof(UnityEngine.ForceMode), L, translator, 0, 0, 0, 0);
-			Utils.EndObjectRegister(typeof(UnityEngine.ForceMode), L, translator, null, null, null, null, null);
+		    Utils.BeginObjectRegister(typeof(Tutorial.TestEnum), L, translator, 0, 0, 0, 0);
+			Utils.EndObjectRegister(typeof(Tutorial.TestEnum), L, translator, null, null, null, null, null);
 			
-			Utils.BeginClassRegister(typeof(UnityEngine.ForceMode), L, null, 5, 0, 0);
+			Utils.BeginClassRegister(typeof(Tutorial.TestEnum), L, null, 3, 0, 0);
 
             
-            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "Force", UnityEngine.ForceMode.Force);
+            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "E1", Tutorial.TestEnum.E1);
             
-            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "Acceleration", UnityEngine.ForceMode.Acceleration);
-            
-            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "Impulse", UnityEngine.ForceMode.Impulse);
-            
-            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "VelocityChange", UnityEngine.ForceMode.VelocityChange);
+            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "E2", Tutorial.TestEnum.E2);
             
 
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "__CastFrom", __CastFrom);
             
-            Utils.EndClassRegister(typeof(UnityEngine.ForceMode), L, translator);
+            Utils.EndClassRegister(typeof(Tutorial.TestEnum), L, translator);
         }
 		
 		[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -48,38 +44,30 @@ namespace XLua.CSObjectWrap
 			LuaTypes lua_type = LuaAPI.lua_type(L, 1);
             if (lua_type == LuaTypes.LUA_TNUMBER)
             {
-                translator.PushUnityEngineForceMode(L, (UnityEngine.ForceMode)LuaAPI.xlua_tointeger(L, 1));
+                translator.PushTutorialTestEnum(L, (Tutorial.TestEnum)LuaAPI.xlua_tointeger(L, 1));
             }
 			
             else if(lua_type == LuaTypes.LUA_TSTRING)
             {
 
-			    if (LuaAPI.xlua_is_eq_str(L, 1, "Force"))
+			    if (LuaAPI.xlua_is_eq_str(L, 1, "E1"))
                 {
-                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.Force);
+                    translator.PushTutorialTestEnum(L, Tutorial.TestEnum.E1);
                 }
-				else if (LuaAPI.xlua_is_eq_str(L, 1, "Acceleration"))
+				else if (LuaAPI.xlua_is_eq_str(L, 1, "E2"))
                 {
-                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.Acceleration);
-                }
-				else if (LuaAPI.xlua_is_eq_str(L, 1, "Impulse"))
-                {
-                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.Impulse);
-                }
-				else if (LuaAPI.xlua_is_eq_str(L, 1, "VelocityChange"))
-                {
-                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.VelocityChange);
+                    translator.PushTutorialTestEnum(L, Tutorial.TestEnum.E2);
                 }
 				else
                 {
-                    return LuaAPI.luaL_error(L, "invalid string for UnityEngine.ForceMode!");
+                    return LuaAPI.luaL_error(L, "invalid string for Tutorial.TestEnum!");
                 }
 
             }
 			
             else
             {
-                return LuaAPI.luaL_error(L, "invalid lua type for UnityEngine.ForceMode! Expect number or string, got + " + lua_type);
+                return LuaAPI.luaL_error(L, "invalid lua type for Tutorial.TestEnum! Expect number or string, got + " + lua_type);
             }
 
             return 1;
@@ -144,64 +132,6 @@ namespace XLua.CSObjectWrap
 		}
 	}
     
-    public class TutorialTestEnumWrap
-    {
-		public static void __Register(RealStatePtr L)
-        {
-		    ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-		    Utils.BeginObjectRegister(typeof(Tutorial.TestEnum), L, translator, 0, 0, 0, 0);
-			Utils.EndObjectRegister(typeof(Tutorial.TestEnum), L, translator, null, null, null, null, null);
-			
-			Utils.BeginClassRegister(typeof(Tutorial.TestEnum), L, null, 3, 0, 0);
-
-            
-            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "E1", Tutorial.TestEnum.E1);
-            
-            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "E2", Tutorial.TestEnum.E2);
-            
-
-			Utils.RegisterFunc(L, Utils.CLS_IDX, "__CastFrom", __CastFrom);
-            
-            Utils.EndClassRegister(typeof(Tutorial.TestEnum), L, translator);
-        }
-		
-		[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int __CastFrom(RealStatePtr L)
-		{
-			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			LuaTypes lua_type = LuaAPI.lua_type(L, 1);
-            if (lua_type == LuaTypes.LUA_TNUMBER)
-            {
-                translator.PushTutorialTestEnum(L, (Tutorial.TestEnum)LuaAPI.xlua_tointeger(L, 1));
-            }
-			
-            else if(lua_type == LuaTypes.LUA_TSTRING)
-            {
-
-			    if (LuaAPI.xlua_is_eq_str(L, 1, "E1"))
-                {
-                    translator.PushTutorialTestEnum(L, Tutorial.TestEnum.E1);
-                }
-				else if (LuaAPI.xlua_is_eq_str(L, 1, "E2"))
-                {
-                    translator.PushTutorialTestEnum(L, Tutorial.TestEnum.E2);
-                }
-				else
-                {
-                    return LuaAPI.luaL_error(L, "invalid string for Tutorial.TestEnum!");
-                }
-
-            }
-			
-            else
-            {
-                return LuaAPI.luaL_error(L, "invalid lua type for Tutorial.TestEnum! Expect number or string, got + " + lua_type);
-            }
-
-            return 1;
-		}
-	}
-    
     public class TutorialDerivedClassTestEnumInnerWrap
     {
 		public static void __Register(RealStatePtr L)
@@ -254,6 +184,76 @@ namespace XLua.CSObjectWrap
             else
             {
                 return LuaAPI.luaL_error(L, "invalid lua type for Tutorial.DerivedClass.TestEnumInner! Expect number or string, got + " + lua_type);
+            }
+
+            return 1;
+		}
+	}
+    
+    public class UnityEngineForceModeWrap
+    {
+		public static void __Register(RealStatePtr L)
+        {
+		    ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+		    Utils.BeginObjectRegister(typeof(UnityEngine.ForceMode), L, translator, 0, 0, 0, 0);
+			Utils.EndObjectRegister(typeof(UnityEngine.ForceMode), L, translator, null, null, null, null, null);
+			
+			Utils.BeginClassRegister(typeof(UnityEngine.ForceMode), L, null, 5, 0, 0);
+
+            
+            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "Force", UnityEngine.ForceMode.Force);
+            
+            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "Acceleration", UnityEngine.ForceMode.Acceleration);
+            
+            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "Impulse", UnityEngine.ForceMode.Impulse);
+            
+            Utils.RegisterObject(L, translator, Utils.CLS_IDX, "VelocityChange", UnityEngine.ForceMode.VelocityChange);
+            
+
+			Utils.RegisterFunc(L, Utils.CLS_IDX, "__CastFrom", __CastFrom);
+            
+            Utils.EndClassRegister(typeof(UnityEngine.ForceMode), L, translator);
+        }
+		
+		[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int __CastFrom(RealStatePtr L)
+		{
+			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			LuaTypes lua_type = LuaAPI.lua_type(L, 1);
+            if (lua_type == LuaTypes.LUA_TNUMBER)
+            {
+                translator.PushUnityEngineForceMode(L, (UnityEngine.ForceMode)LuaAPI.xlua_tointeger(L, 1));
+            }
+			
+            else if(lua_type == LuaTypes.LUA_TSTRING)
+            {
+
+			    if (LuaAPI.xlua_is_eq_str(L, 1, "Force"))
+                {
+                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.Force);
+                }
+				else if (LuaAPI.xlua_is_eq_str(L, 1, "Acceleration"))
+                {
+                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.Acceleration);
+                }
+				else if (LuaAPI.xlua_is_eq_str(L, 1, "Impulse"))
+                {
+                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.Impulse);
+                }
+				else if (LuaAPI.xlua_is_eq_str(L, 1, "VelocityChange"))
+                {
+                    translator.PushUnityEngineForceMode(L, UnityEngine.ForceMode.VelocityChange);
+                }
+				else
+                {
+                    return LuaAPI.luaL_error(L, "invalid string for UnityEngine.ForceMode!");
+                }
+
+            }
+			
+            else
+            {
+                return LuaAPI.luaL_error(L, "invalid lua type for UnityEngine.ForceMode! Expect number or string, got + " + lua_type);
             }
 
             return 1;

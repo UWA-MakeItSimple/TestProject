@@ -23,9 +23,9 @@ namespace XLua.CSObjectWrap
 			System.Type type = typeof(UnityEngine.RectOffset);
 			Utils.BeginObjectRegister(type, L, translator, 0, 3, 6, 4);
 			
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ToString", _m_ToString);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Add", _m_Add);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Remove", _m_Remove);
-			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ToString", _m_ToString);
 			
 			
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "left", _g_get_left);
@@ -97,6 +97,61 @@ namespace XLua.CSObjectWrap
         
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_ToString(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.RectOffset gen_to_be_invoked = (UnityEngine.RectOffset)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 1) 
+                {
+                    
+                        string gen_ret = gen_to_be_invoked.ToString(  );
+                        LuaAPI.lua_pushstring(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 2&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)) 
+                {
+                    string _format = LuaAPI.lua_tostring(L, 2);
+                    
+                        string gen_ret = gen_to_be_invoked.ToString( _format );
+                        LuaAPI.lua_pushstring(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(gen_param_count == 3&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)&& translator.Assignable<System.IFormatProvider>(L, 3)) 
+                {
+                    string _format = LuaAPI.lua_tostring(L, 2);
+                    System.IFormatProvider _formatProvider = (System.IFormatProvider)translator.GetObject(L, 3, typeof(System.IFormatProvider));
+                    
+                        string gen_ret = gen_to_be_invoked.ToString( _format, _formatProvider );
+                        LuaAPI.lua_pushstring(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.RectOffset.ToString!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_Add(RealStatePtr L)
         {
 		    try {
@@ -142,34 +197,6 @@ namespace XLua.CSObjectWrap
                     
                         UnityEngine.Rect gen_ret = gen_to_be_invoked.Remove( _rect );
                         translator.Push(L, gen_ret);
-                    
-                    
-                    
-                    return 1;
-                }
-                
-            } catch(System.Exception gen_e) {
-                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-            }
-            
-        }
-        
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _m_ToString(RealStatePtr L)
-        {
-		    try {
-            
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-            
-            
-                UnityEngine.RectOffset gen_to_be_invoked = (UnityEngine.RectOffset)translator.FastGetCSObj(L, 1);
-            
-            
-                
-                {
-                    
-                        string gen_ret = gen_to_be_invoked.ToString(  );
-                        LuaAPI.lua_pushstring(L, gen_ret);
                     
                     
                     

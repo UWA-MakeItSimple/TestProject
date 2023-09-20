@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Android" BasePlatform="Android" SchemaVersion="16" SoundBankVersion="145">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Android</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="693646761" Type="User" Language="SFX" Hash="{F94A846D-9917-CEF3-351F-7AA81FAC4C15}">
+			<ShortName>MM_SoundBank</ShortName>
+			<Path>MM_SoundBank.bnk</Path>
+			<Media>
+				<File Id="391294492" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\枪声.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/枪声_10C4C929.wem</CachePath>
+				</File>
+				<File Id="846692112" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>duckhunt.wav</ShortName>
+					<CachePath>SFX/duckhunt_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3126765036" Name="Play_bgm" DurationType="OneShot" DurationMin="83.06498" DurationMax="83.06498">
+					<MediaRefs>
+						<MediaRef Id="846692112"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2622995180" Name="Play_gun" DurationType="OneShot" DurationMin="0.888" DurationMax="0.888">
+					<MediaRefs>
+						<MediaRef Id="391294492"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1073466678" Name="Stop_bgm" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{97E3ECE0-57A7-67B2-9351-D7D5459B66B1}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+		</SoundBank>
+		<SoundBank Id="2641024368" Type="User" Language="SFX" Hash="{ED48CE2D-E0C7-DD64-156A-138C99DFD63C}">
+			<ShortName>SFX_SoundBank</ShortName>
+			<Path>SFX_SoundBank.bnk</Path>
+			<Media>
+				<File Id="78319125" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\狗跳入草丛.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/狗跳入草丛_10C4C929.wem</CachePath>
+				</File>
+				<File Id="126532286" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\没打中鸭子狗笑音效.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/没打中鸭子狗笑音效_10C4C929.wem</CachePath>
+				</File>
+				<File Id="288543941" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\鸭子扇翅膀音效.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/鸭子扇翅膀音效_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="316972238" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\打中后狗捡到鸭子音效.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/打中后狗捡到鸭子音效_10C4C929.wem</CachePath>
+				</File>
+				<File Id="391294492" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\枪声.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/枪声_10C4C929.wem</CachePath>
+				</File>
+				<File Id="563936632" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\GAMEOVER.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/GAMEOVER_10C4C929.wem</CachePath>
+				</File>
+				<File Id="580246000" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\开始音效.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/开始音效_10C4C929.wem</CachePath>
+				</File>
+				<File Id="914487667" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\结束音效.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/结束音效_10C4C929.wem</CachePath>
+				</File>
+				<File Id="1072788140" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DuckHuntWAV\枪声-打中鸭子坠落.wav</ShortName>
+					<CachePath>SFX/DuckHuntWAV/枪声-打中鸭子坠落_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2007351433" Name="Play_drop" DurationType="OneShot" DurationMin="1.416" DurationMax="1.416">
+					<MediaRefs>
+						<MediaRef Id="1072788140"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2891289973" Name="Play_fin" DurationType="OneShot" DurationMin="4.152" DurationMax="4.152">
+					<MediaRefs>
+						<MediaRef Id="914487667"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1446251023" Name="Play_flyloop" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="288543941"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2622995180" Name="Play_gun" DurationType="OneShot" DurationMin="0.888" DurationMax="0.888">
+					<MediaRefs>
+						<MediaRef Id="391294492"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3689126666" Name="Play_jump" DurationType="OneShot" DurationMin="1.008" DurationMax="1.008">
+					<MediaRefs>
+						<MediaRef Id="78319125"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2456646015" Name="Play_lol" DurationType="OneShot" DurationMin="1.608" DurationMax="1.608">
+					<MediaRefs>
+						<MediaRef Id="126532286"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2348692292" Name="Play_over" DurationType="OneShot" DurationMin="5.904" DurationMax="5.904">
+					<MediaRefs>
+						<MediaRef Id="563936632"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1350180013" Name="Play_pick" DurationType="OneShot" DurationMin="1.008" DurationMax="1.008">
+					<MediaRefs>
+						<MediaRef Id="316972238"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2230670290" Name="Play_start" DurationType="OneShot" DurationMin="5.592" DurationMax="5.592">
+					<MediaRefs>
+						<MediaRef Id="580246000"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2981461541" Name="Stop_flyloop" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+			</Events>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{28F8052B-C243-5F20-263A-E7FEEF477165}</FileHash>
+</SoundBanksInfo>

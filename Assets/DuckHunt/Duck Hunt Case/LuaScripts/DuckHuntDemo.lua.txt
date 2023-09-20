@@ -16,6 +16,7 @@ local bottomPercent =0.3
 local level = 1
 local audioSourceBg
 local audioSourceGun
+local audioWwise
 local resourcesRef
 local bulletNum = 3
 local bOne,bTwo,bThree
@@ -60,15 +61,39 @@ function OnEnabled()
     unity=CS.UnityEngine 
 end
 
+local IsInGame=false
+
+function Start()
+    audioWwise = AudioWwise:GetComponent("DuckHuntLuaWWise")
+    audioWwise:LoadBank("MM_SoundBank")
+    audioWwise:PostSound("Play_bgm")
+    -- deactive MainMenu and active InGame
+    BtnStart:GetComponent("Button").onClick:AddListener(function() SwitchToInGame() end)
+end
+
+function SwitchToInGame()
+    audioWwise:PostSound("Play_gun")
+    -- delay to start game
+    local co = coroutine.create(function()
+        yield_return(unity.WaitForSeconds(0.5))
+        MainMenu.gameObject:SetActive(false)
+        InGame.gameObject:SetActive(true)
+        audioWwise:PostSound("Stop_bgm")
+        audioWwise:UnloadBank("MM_SoundBank")
+        StartInGame()
+    end)
+    assert(coroutine.resume(co))
+end
+
 --Start function 
-function Start()  
+function StartInGame()  
 --Get object instance  	
     textTimer=TextTimer:GetComponent("Text")
     callCS = Callcs:GetComponent("DuckHuntLuaCallCS")
     joystick =MJoystick:GetComponent("SimpleTouchController")
     mainCam= MCam:GetComponent("Camera")
-    audioSourceBg =AudioSourceBG:GetComponent("AudioSource")
-    audioSourceGun =AudioSourceGun:GetComponent("AudioSource")
+    --audioSourceBg =AudioSourceBG:GetComponent("AudioSource")
+    --audioSourceGun =AudioSourceGun:GetComponent("AudioSource")
     resourcesRef= ResourcesRef:GetComponent("DuckHuntLuaResourceRef")
     bOne = ImageBullet.transform:GetChild(0).gameObject
     bTwo = ImageBullet.transform:GetChild(1).gameObject
@@ -98,10 +123,15 @@ function Start()
     OpeningMovie:GetComponent("DuckHuntLuaUMovie").OnAnimationPlayEnd:AddListener(function() 
         startGame()
     end)
-    WaitForPlayAudio(11,audioSourceBg,resourcesRef.AudioRef[0])
+    -- WaitForPlayAudio(11,audioSourceBg,resourcesRef.AudioRef[0])
+
+    audioWwise:LoadBank("SFX_SoundBank")
+    WaitForPlayAudioWwise(0.2,"Play_start")
+
     showLevel(level)
     HitDuckScore =0
-    IsNextLevel=false    
+    IsNextLevel=false
+    IsInGame=true    
 end
 
 function JoystickSensitive()    
@@ -123,7 +153,8 @@ function startGame()
     RandomFly= true
     startTimer =true
     --duck fly audio
-    AudioSourceDFly.gameObject:SetActive(true)
+    --AudioSourceDFly.gameObject:SetActive(true)
+    PlayAudioWwise("Play_flyloop")
     WaitForChangeAnimation(0.9)
 end
 
@@ -168,10 +199,13 @@ function FireEvent()
         BottomCollider.gameObject:SetActive(true) 
         RandomFly =false        
         DelayChangeFallAni()      
-        PlayAudio(audioSourceGun,resourcesRef.AudioRef[2])
-        AudioSourceDFly.gameObject:SetActive(false)   
+        --PlayAudio(audioSourceGun,resourcesRef.AudioRef[2])
+        PlayAudioWwise("Play_drop")
+        --AudioSourceDFly.gameObject:SetActive(false)   
+        PlayAudioWwise("Stop_flyloop")
     else  
-        PlayAudio(audioSourceGun,resourcesRef.AudioRef[1])
+        --PlayAudio(audioSourceGun,resourcesRef.AudioRef[1])
+        PlayAudioWwise("Play_gun")
         isHitDuck =false
     end
     bulletNum=bulletNum-1
@@ -207,7 +241,8 @@ function CheckDuckFailDownEvent()
         sc500.gameObject:SetActive(false)         
         IsFall =false
         if(DuckNumCount~=10) then
-            PlayAudio(audioSourceBg,resourcesRef.AudioRef[5])
+            --PlayAudio(audioSourceBg,resourcesRef.AudioRef[5])
+            PlayAudioWwise("Play_pick")
         end
         unity.Object.Destroy(target.gameObject)
         target= null
@@ -241,7 +276,8 @@ function ReBorn(_time)
             local bornPos= RandomBornPoint()
             InstantiateDuck(bornPos)
             --duck fly background 
-            AudioSourceDFly.gameObject:SetActive(true)
+            --AudioSourceDFly.gameObject:SetActive(true)
+            PlayAudioWwise("Play_flyloop")
             RandomFly=true
             moveNavigation()
             --Time config
@@ -306,7 +342,8 @@ function GameOver()
     if(HitDuckNum<6) then
         result = true       
         ImageGameOver.gameObject:SetActive(true)
-        PlayAudio(audioSourceBg,resourcesRef.AudioRef[6])
+        --PlayAudio(audioSourceBg,resourcesRef.AudioRef[6])
+        PlayAudioWwise("Play_over")
         local co = coroutine.create(function()
         yield_return(unity.WaitForSeconds(6))
             level= 1  
@@ -420,6 +457,10 @@ end
 local m_collisionState
 --Update function
 function Update()
+    if(IsInGame~=true) then
+        return
+    end
+
     if(startTimer) then
         Timer()
     end
@@ -545,6 +586,18 @@ function PlayAudio(_audioSource,_clip)
     _audioSource:Play()
 end
 
+function WaitForPlayAudioWwise(_time,_clip)
+    local co = coroutine.create(function()
+        yield_return(unity.WaitForSeconds(_time))
+        PlayAudioWwise(_clip)
+     end)
+     assert(coroutine.resume(co))
+end
+
+function PlayAudioWwise(_clip)
+    audioWwise:PostSound(_clip)
+end
+
 function GameDemo.DestroyObjectLate(_obj,_time)
     local co = coroutine.create(function()
         yield_return(unity.WaitForSeconds(_time))
@@ -631,9 +684,11 @@ function DuckFlyAway()
     DogLaughMovie.gameObject:SetActive(true)
     --在关卡结束的时候会产生音频冲突，不播放逃逸的音效
     if(DuckNumCount~=10) then
-        PlayAudio(audioSourceBg,resourcesRef.AudioRef[3])
+        --PlayAudio(audioSourceBg,resourcesRef.AudioRef[3])
+        PlayAudioWwise("Play_lol")
     end
-    AudioSourceDFly.gameObject:SetActive(false)
+    --AudioSourceDFly.gameObject:SetActive(false)
+    PlayAudioWwise("Stop_flyloop")
     BottomCollider.gameObject:SetActive(false)
         if(target) then
             --逃离飞出边界，所以需要进行延时处理

@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.Video.VideoClip);
-			Utils.BeginObjectRegister(type, L, translator, 0, 3, 9, 0);
+			Utils.BeginObjectRegister(type, L, translator, 0, 3, 10, 0);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetAudioChannelCount", _m_GetAudioChannelCount);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetAudioSampleRate", _m_GetAudioSampleRate);
@@ -36,6 +36,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "height", _g_get_height);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "pixelAspectRatioNumerator", _g_get_pixelAspectRatioNumerator);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "pixelAspectRatioDenominator", _g_get_pixelAspectRatioDenominator);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "sRGB", _g_get_sRGB);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "audioTrackCount", _g_get_audioTrackCount);
             
 			
@@ -262,6 +263,20 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.Video.VideoClip gen_to_be_invoked = (UnityEngine.Video.VideoClip)translator.FastGetCSObj(L, 1);
                 LuaAPI.xlua_pushuint(L, gen_to_be_invoked.pixelAspectRatioDenominator);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_sRGB(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Video.VideoClip gen_to_be_invoked = (UnityEngine.Video.VideoClip)translator.FastGetCSObj(L, 1);
+                LuaAPI.lua_pushboolean(L, gen_to_be_invoked.sRGB);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }

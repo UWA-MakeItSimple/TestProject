@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.RaycastHit);
-			Utils.BeginObjectRegister(type, L, translator, 0, 0, 11, 4);
+			Utils.BeginObjectRegister(type, L, translator, 0, 0, 12, 4);
 			
 			
 			
@@ -35,6 +35,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "textureCoord2", _g_get_textureCoord2);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "transform", _g_get_transform);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "rigidbody", _g_get_rigidbody);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "articulationBody", _g_get_articulationBody);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "lightmapCoord", _g_get_lightmapCoord);
             
 			Utils.RegisterFunc(L, Utils.SETTER_IDX, "point", _s_set_point);
@@ -221,6 +222,20 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.RaycastHit gen_to_be_invoked;translator.Get(L, 1, out gen_to_be_invoked);
                 translator.Push(L, gen_to_be_invoked.rigidbody);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_articulationBody(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.RaycastHit gen_to_be_invoked;translator.Get(L, 1, out gen_to_be_invoked);
+                translator.Push(L, gen_to_be_invoked.articulationBody);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }

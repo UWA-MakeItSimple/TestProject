@@ -1,0 +1,9 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1073466678	Stop_bgm			\Default Work Unit\Stop_bgm	
+	2622995180	Play_gun			\Default Work Unit\Play_gun	
+	3126765036	Play_bgm			\Default Work Unit\Play_bgm	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	391294492	枪声	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\枪声_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声		85344
+	846692112	duckhunt	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\duckhunt_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\duckhunt		15948572
+

@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.Sprite);
-			Utils.BeginObjectRegister(type, L, translator, 0, 5, 15, 0);
+			Utils.BeginObjectRegister(type, L, translator, 0, 5, 17, 0);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetPhysicsShapeCount", _m_GetPhysicsShapeCount);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetPhysicsShapePointCount", _m_GetPhysicsShapePointCount);
@@ -35,8 +35,10 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "border", _g_get_border);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "texture", _g_get_texture);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "pixelsPerUnit", _g_get_pixelsPerUnit);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "spriteAtlasTextureScale", _g_get_spriteAtlasTextureScale);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "associatedAlphaSplitTexture", _g_get_associatedAlphaSplitTexture);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "pivot", _g_get_pivot);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "isUsingPlaceholder", _g_get_isUsingPlaceholder);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "packed", _g_get_packed);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "packingMode", _g_get_packingMode);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "packingRotation", _g_get_packingRotation);
@@ -406,6 +408,20 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_spriteAtlasTextureScale(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Sprite gen_to_be_invoked = (UnityEngine.Sprite)translator.FastGetCSObj(L, 1);
+                LuaAPI.lua_pushnumber(L, gen_to_be_invoked.spriteAtlasTextureScale);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_associatedAlphaSplitTexture(RealStatePtr L)
         {
 		    try {
@@ -427,6 +443,20 @@ namespace XLua.CSObjectWrap
 			
                 UnityEngine.Sprite gen_to_be_invoked = (UnityEngine.Sprite)translator.FastGetCSObj(L, 1);
                 translator.PushUnityEngineVector2(L, gen_to_be_invoked.pivot);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_isUsingPlaceholder(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                UnityEngine.Sprite gen_to_be_invoked = (UnityEngine.Sprite)translator.FastGetCSObj(L, 1);
+                LuaAPI.lua_pushboolean(L, gen_to_be_invoked.isUsingPlaceholder);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }

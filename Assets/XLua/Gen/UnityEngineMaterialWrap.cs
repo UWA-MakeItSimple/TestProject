@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(UnityEngine.Material);
-			Utils.BeginObjectRegister(type, L, translator, 0, 40, 11, 10);
+			Utils.BeginObjectRegister(type, L, translator, 0, 42, 11, 10);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "HasProperty", _m_HasProperty);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "EnableKeyword", _m_EnableKeyword);
@@ -36,6 +36,7 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Lerp", _m_Lerp);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetPass", _m_SetPass);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "CopyPropertiesFromMaterial", _m_CopyPropertiesFromMaterial);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ComputeCRC", _m_ComputeCRC);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetTexturePropertyNames", _m_GetTexturePropertyNames);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetTexturePropertyNameIDs", _m_GetTexturePropertyNameIDs);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetFloat", _m_SetFloat);
@@ -45,6 +46,7 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetMatrix", _m_SetMatrix);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetTexture", _m_SetTexture);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetBuffer", _m_SetBuffer);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetConstantBuffer", _m_SetConstantBuffer);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetFloatArray", _m_SetFloatArray);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetColorArray", _m_SetColorArray);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetVectorArray", _m_SetVectorArray);
@@ -551,6 +553,34 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_ComputeCRC(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Material gen_to_be_invoked = (UnityEngine.Material)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                        int gen_ret = gen_to_be_invoked.ComputeCRC(  );
+                        LuaAPI.xlua_pushinteger(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_GetTexturePropertyNames(RealStatePtr L)
         {
 		    try {
@@ -889,6 +919,30 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.RenderTexture>(L, 3)&& translator.Assignable<UnityEngine.Rendering.RenderTextureSubElement>(L, 4)) 
+                {
+                    int _nameID = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.RenderTexture _value = (UnityEngine.RenderTexture)translator.GetObject(L, 3, typeof(UnityEngine.RenderTexture));
+                    UnityEngine.Rendering.RenderTextureSubElement _element;translator.Get(L, 4, out _element);
+                    
+                    gen_to_be_invoked.SetTexture( _nameID, _value, _element );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 4&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)&& translator.Assignable<UnityEngine.RenderTexture>(L, 3)&& translator.Assignable<UnityEngine.Rendering.RenderTextureSubElement>(L, 4)) 
+                {
+                    string _name = LuaAPI.lua_tostring(L, 2);
+                    UnityEngine.RenderTexture _value = (UnityEngine.RenderTexture)translator.GetObject(L, 3, typeof(UnityEngine.RenderTexture));
+                    UnityEngine.Rendering.RenderTextureSubElement _element;translator.Get(L, 4, out _element);
+                    
+                    gen_to_be_invoked.SetTexture( _name, _value, _element );
+                    
+                    
+                    
+                    return 0;
+                }
                 
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
@@ -922,10 +976,32 @@ namespace XLua.CSObjectWrap
                     
                     return 0;
                 }
+                if(gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.GraphicsBuffer>(L, 3)) 
+                {
+                    int _nameID = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.GraphicsBuffer _value = (UnityEngine.GraphicsBuffer)translator.GetObject(L, 3, typeof(UnityEngine.GraphicsBuffer));
+                    
+                    gen_to_be_invoked.SetBuffer( _nameID, _value );
+                    
+                    
+                    
+                    return 0;
+                }
                 if(gen_param_count == 3&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)&& translator.Assignable<UnityEngine.ComputeBuffer>(L, 3)) 
                 {
                     string _name = LuaAPI.lua_tostring(L, 2);
                     UnityEngine.ComputeBuffer _value = (UnityEngine.ComputeBuffer)translator.GetObject(L, 3, typeof(UnityEngine.ComputeBuffer));
+                    
+                    gen_to_be_invoked.SetBuffer( _name, _value );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 3&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)&& translator.Assignable<UnityEngine.GraphicsBuffer>(L, 3)) 
+                {
+                    string _name = LuaAPI.lua_tostring(L, 2);
+                    UnityEngine.GraphicsBuffer _value = (UnityEngine.GraphicsBuffer)translator.GetObject(L, 3, typeof(UnityEngine.GraphicsBuffer));
                     
                     gen_to_be_invoked.SetBuffer( _name, _value );
                     
@@ -939,6 +1015,80 @@ namespace XLua.CSObjectWrap
             }
             
             return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Material.SetBuffer!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetConstantBuffer(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                UnityEngine.Material gen_to_be_invoked = (UnityEngine.Material)translator.FastGetCSObj(L, 1);
+            
+            
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+            
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.ComputeBuffer>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _nameID = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.ComputeBuffer _value = (UnityEngine.ComputeBuffer)translator.GetObject(L, 3, typeof(UnityEngine.ComputeBuffer));
+                    int _offset = LuaAPI.xlua_tointeger(L, 4);
+                    int _size = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetConstantBuffer( _nameID, _value, _offset, _size );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.GraphicsBuffer>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    int _nameID = LuaAPI.xlua_tointeger(L, 2);
+                    UnityEngine.GraphicsBuffer _value = (UnityEngine.GraphicsBuffer)translator.GetObject(L, 3, typeof(UnityEngine.GraphicsBuffer));
+                    int _offset = LuaAPI.xlua_tointeger(L, 4);
+                    int _size = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetConstantBuffer( _nameID, _value, _offset, _size );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)&& translator.Assignable<UnityEngine.ComputeBuffer>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    string _name = LuaAPI.lua_tostring(L, 2);
+                    UnityEngine.ComputeBuffer _value = (UnityEngine.ComputeBuffer)translator.GetObject(L, 3, typeof(UnityEngine.ComputeBuffer));
+                    int _offset = LuaAPI.xlua_tointeger(L, 4);
+                    int _size = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetConstantBuffer( _name, _value, _offset, _size );
+                    
+                    
+                    
+                    return 0;
+                }
+                if(gen_param_count == 5&& (LuaAPI.lua_isnil(L, 2) || LuaAPI.lua_type(L, 2) == LuaTypes.LUA_TSTRING)&& translator.Assignable<UnityEngine.GraphicsBuffer>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    string _name = LuaAPI.lua_tostring(L, 2);
+                    UnityEngine.GraphicsBuffer _value = (UnityEngine.GraphicsBuffer)translator.GetObject(L, 3, typeof(UnityEngine.GraphicsBuffer));
+                    int _offset = LuaAPI.xlua_tointeger(L, 4);
+                    int _size = LuaAPI.xlua_tointeger(L, 5);
+                    
+                    gen_to_be_invoked.SetConstantBuffer( _name, _value, _offset, _size );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Material.SetConstantBuffer!");
             
         }
         
