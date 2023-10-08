@@ -1,0 +1,23 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1350180013	Play_pick			\Default Work Unit\Play_pick	
+	1446251023	Play_flyloop			\Default Work Unit\Play_flyloop	
+	2007351433	Play_drop			\Default Work Unit\Play_drop	
+	2230670290	Play_start			\Default Work Unit\Play_start	
+	2348692292	Play_over			\Default Work Unit\Play_over	
+	2456646015	Play_lol			\Default Work Unit\Play_lol	
+	2622995180	Play_gun			\Default Work Unit\Play_gun	
+	2891289973	Play_fin			\Default Work Unit\Play_fin	
+	2981461541	Stop_flyloop			\Default Work Unit\Stop_flyloop	
+	3689126666	Play_jump			\Default Work Unit\Play_jump	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	215375179	开始音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\开始音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\开始音效		536896
+	291105583	鸭子扇翅膀音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\鸭子扇翅膀音效_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\鸭子扇翅膀音效		18496
+	295602812	打中后狗捡到鸭子音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\打中后狗捡到鸭子音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\打中后狗捡到鸭子音效		96832
+	538911624	没打中鸭子狗笑音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\没打中鸭子狗笑音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\没打中鸭子狗笑音效		154432
+	679605132	狗跳入草丛	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\狗跳入草丛_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\狗跳入草丛		96832
+	705357181	枪声	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\枪声_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声		85312
+	773731890	枪声-打中鸭子坠落	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\枪声-打中鸭子坠落_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声-打中鸭子坠落		136000
+	821082758	GAMEOVER	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\GAMEOVER_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\GAMEOVER		566848
+	904984344	结束音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Android\SFX\DuckHuntWAV\结束音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\结束音效		398656
+
