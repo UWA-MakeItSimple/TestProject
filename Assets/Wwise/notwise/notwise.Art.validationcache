@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ValidationCache Version="1" SchemaVersion="103">
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Virtual Acoustics\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Triggers\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Switches\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\States\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\SoundBanks\Default Work Unit.wwu" DateLow="1696731592" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Queries\Factory Queries.wwu" DateLow="1696672251" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Queries\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Presets\Factory Spatial Audio.wwu" DateLow="1696672251" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Presets\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\notwise.wproj" DateLow="1696731950" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\notwise.Art.wsettings" DateLow="1696732031" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Modulators\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Mixing Sessions\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Metadata\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Game Parameters\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Events\Default Work Unit.wwu" DateLow="1696731592" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Effects\Factory Effects.wwu" DateLow="1696672251" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Effects\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1696672251" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Conversion Settings\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Control Surface Sessions\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Audio Devices\Default Work Unit.wwu" DateLow="1696731592" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Attenuations\Default Work Unit.wwu" DateLow="1696674428" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1696731592" DateHigh="0"/>
+</ValidationCache>

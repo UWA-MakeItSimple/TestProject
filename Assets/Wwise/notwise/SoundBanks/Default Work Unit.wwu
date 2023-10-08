@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{7D8EA9D7-D8E6-4403-838F-56F3C98253E2}" SchemaVersion="103">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{7D8EA9D7-D8E6-4403-838F-56F3C98253E2}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="MM_SoundBank" ID="{151802E7-8077-441E-AF56-4865A16F4833}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Stop_bgm" ID="{E7B1C2BA-77A1-41F9-A308-09F096200D44}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_bgm" ID="{05BCE57E-D12A-4400-9731-B237EC8B3DA6}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_gun" ID="{257A38B8-00CA-4CFC-94C3-F6DD8D23877D}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+				<SoundBank Name="SFX_SoundBank" ID="{DA58CEEC-7A0B-4A82-B34E-6FCB13486E3D}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Play_fin" ID="{92A46C48-15E2-40C2-86F6-B48D4F2B08C9}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Stop_flyloop" ID="{67CF12AB-B319-40F3-8063-10BDAC780958}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_pick" ID="{F292200C-05BB-4291-8386-028ECE047924}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_drop" ID="{B66CD22F-CE08-45F5-870C-06F50D67FD24}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_over" ID="{917B9287-63A8-46D7-9ED5-80CA02F1C64B}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_jump" ID="{7A3E4BAF-14C4-4A22-B8C4-DA6CAECB1CCF}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_start" ID="{5CB861D5-F1D9-4C67-9170-5E1959B8D9D3}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_gun" ID="{257A38B8-00CA-4CFC-94C3-F6DD8D23877D}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_flyloop" ID="{195E8BDA-7FAD-4ECC-A3EF-C58DFA0448F3}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_lol" ID="{9431A495-3BFD-4F3A-9C0C-BD9EFE6BBE23}" WorkUnitID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

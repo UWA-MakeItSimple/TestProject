@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{E97429E8-CA0F-4F38-BEB2-2248AD4311F7}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_over" ID="{917B9287-63A8-46D7-9ED5-80CA02F1C64B}">
+					<ChildrenList>
+						<Action Name="" ID="{B2A119D4-8F19-4907-8C23-CC319A135821}" ShortID="1033203965">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GAMEOVER" ID="{5378897C-B193-4800-890F-2F00AB9E5959}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_start" ID="{5CB861D5-F1D9-4C67-9170-5E1959B8D9D3}">
+					<ChildrenList>
+						<Action Name="" ID="{CE8366A7-3472-48F2-93E1-BF21546A189A}" ShortID="285246137">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="开始音效" ID="{82F53497-CBCB-4CD0-A4FD-84A5ED4AF95A}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_pick" ID="{F292200C-05BB-4291-8386-028ECE047924}">
+					<ChildrenList>
+						<Action Name="" ID="{44B10CC8-4195-47A3-ACB1-5FD311ED9C67}" ShortID="1060090592">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="打中后狗捡到鸭子音效" ID="{C4121AFC-C42B-49A5-A425-37FB91B17C5D}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_gun" ID="{257A38B8-00CA-4CFC-94C3-F6DD8D23877D}">
+					<ChildrenList>
+						<Action Name="" ID="{A70A4AB4-9FEE-4AB1-B6D2-78F82297BEBB}" ShortID="386855180">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="枪声" ID="{679BCEF2-A435-488E-9C52-EFB3CE177BCF}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_drop" ID="{B66CD22F-CE08-45F5-870C-06F50D67FD24}">
+					<ChildrenList>
+						<Action Name="" ID="{971ED001-AA4A-4885-86D4-9347A6AB1D67}" ShortID="555045641">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="枪声-打中鸭子坠落" ID="{FEAFD29D-A52E-43D0-AD6D-A7070BA6CAB9}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_lol" ID="{9431A495-3BFD-4F3A-9C0C-BD9EFE6BBE23}">
+					<ChildrenList>
+						<Action Name="" ID="{1BF5EC29-FA04-45B9-B0B5-71FD6074A560}" ShortID="135799544">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="没打中鸭子狗笑音效" ID="{9CFC47F7-7EEB-46E8-B0EE-B73504730492}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_jump" ID="{7A3E4BAF-14C4-4A22-B8C4-DA6CAECB1CCF}">
+					<ChildrenList>
+						<Action Name="" ID="{C382C922-DAAE-47DE-A376-DEF884A7C9D6}" ShortID="629132741">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="狗跳入草丛" ID="{64A39165-5874-41C0-9305-C1866240D48F}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_fin" ID="{92A46C48-15E2-40C2-86F6-B48D4F2B08C9}">
+					<ChildrenList>
+						<Action Name="" ID="{8352D1F0-4AB1-4064-A101-F9AF44A23BBB}" ShortID="285594910">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="结束音效" ID="{DEF3A1B4-5677-4DDF-816E-0F298EC577CF}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_flyloop" ID="{195E8BDA-7FAD-4ECC-A3EF-C58DFA0448F3}">
+					<ChildrenList>
+						<Action Name="" ID="{DF185641-412A-4C4A-BF30-BDF72CFB3C1C}" ShortID="940592286">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="鸭子扇翅膀音效" ID="{43C8A62C-509E-455F-9A01-B3D7DBF198F8}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_bgm" ID="{05BCE57E-D12A-4400-9731-B237EC8B3DA6}">
+					<ChildrenList>
+						<Action Name="" ID="{9A0472CC-790F-40A8-9913-182BC9CF27C0}" ShortID="532623885">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="duckhunt" ID="{5787A0B0-D5AC-4FDE-85A9-7B524E6FE056}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_bgm" ID="{E7B1C2BA-77A1-41F9-A308-09F096200D44}">
+					<ChildrenList>
+						<Action Name="" ID="{816F8087-6CB0-4C21-9D69-517E2BFD43BD}" ShortID="625208881">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="duckhunt" ID="{5787A0B0-D5AC-4FDE-85A9-7B524E6FE056}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_flyloop" ID="{67CF12AB-B319-40F3-8063-10BDAC780958}">
+					<ChildrenList>
+						<Action Name="" ID="{5953F172-37AD-4AD6-A969-B1A656E11F42}" ShortID="822352899">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="鸭子扇翅膀音效" ID="{43C8A62C-509E-455F-9A01-B3D7DBF198F8}" WorkUnitID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}" SchemaVersion="103">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{CB79AE14-C62C-4BDF-B736-512AFE5EFE5D}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="DuckHuntWAV" ID="{1A58B650-0FCF-4E92-B575-AE941DCC6E25}" ShortID="442812192">
+					<ChildrenList>
+						<Sound Name="GAMEOVER" ID="{5378897C-B193-4800-890F-2F00AB9E5959}" ShortID="101080935">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="GAMEOVER" ID="{61C375C2-D4CE-4BD5-84D4-58225407F919}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\GAMEOVER.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="821082758"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="GAMEOVER" ID="{61C375C2-D4CE-4BD5-84D4-58225407F919}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="开始音效" ID="{82F53497-CBCB-4CD0-A4FD-84A5ED4AF95A}" ShortID="378573741">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="开始音效" ID="{F02E91F0-4698-4D0B-B613-63E7D493807A}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\开始音效.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="215375179"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="开始音效" ID="{F02E91F0-4698-4D0B-B613-63E7D493807A}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="打中后狗捡到鸭子音效" ID="{C4121AFC-C42B-49A5-A425-37FB91B17C5D}" ShortID="305642712">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="打中后狗捡到鸭子音效" ID="{CD9EF847-8B68-46C3-A170-4FD4CF4608A2}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\打中后狗捡到鸭子音效.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="295602812"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="打中后狗捡到鸭子音效" ID="{CD9EF847-8B68-46C3-A170-4FD4CF4608A2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="枪声-打中鸭子坠落" ID="{FEAFD29D-A52E-43D0-AD6D-A7070BA6CAB9}" ShortID="1001963915">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="枪声-打中鸭子坠落" ID="{E6962AE2-9303-411B-9B73-FF9DB4529913}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\枪声-打中鸭子坠落.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="773731890"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="枪声-打中鸭子坠落" ID="{E6962AE2-9303-411B-9B73-FF9DB4529913}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="枪声" ID="{679BCEF2-A435-488E-9C52-EFB3CE177BCF}" ShortID="182701346">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="枪声" ID="{466C44E6-FE07-46C6-9328-6737257296EF}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\枪声.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="705357181"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="枪声" ID="{466C44E6-FE07-46C6-9328-6737257296EF}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="没打中鸭子狗笑音效" ID="{9CFC47F7-7EEB-46E8-B0EE-B73504730492}" ShortID="347028822">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="没打中鸭子狗笑音效" ID="{8D5BF8C0-CCB2-41D9-8C91-88AC83576BF7}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\没打中鸭子狗笑音效.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="538911624"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="没打中鸭子狗笑音效" ID="{8D5BF8C0-CCB2-41D9-8C91-88AC83576BF7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="狗跳入草丛" ID="{64A39165-5874-41C0-9305-C1866240D48F}" ShortID="31211411">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="狗跳入草丛" ID="{0F980F05-A38B-4C4E-B801-7009BEDFA78C}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\狗跳入草丛.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="679605132"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="狗跳入草丛" ID="{0F980F05-A38B-4C4E-B801-7009BEDFA78C}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="结束音效" ID="{DEF3A1B4-5677-4DDF-816E-0F298EC577CF}" ShortID="825343934">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="结束音效" ID="{9F777381-0757-4BE0-91D1-FBB68A5F346E}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\结束音效.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="904984344"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="结束音效" ID="{9F777381-0757-4BE0-91D1-FBB68A5F346E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="鸭子扇翅膀音效" ID="{43C8A62C-509E-455F-9A01-B3D7DBF198F8}" ShortID="215920839">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="鸭子扇翅膀音效" ID="{FD0D6E91-34BD-4F8F-967F-49F9EDC32C52}">
+									<Language>SFX</Language>
+									<AudioFile>DuckHuntWAV\鸭子扇翅膀音效.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="291105583"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="鸭子扇翅膀音效" ID="{FD0D6E91-34BD-4F8F-967F-49F9EDC32C52}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+				<Sound Name="duckhunt" ID="{5787A0B0-D5AC-4FDE-85A9-7B524E6FE056}" ShortID="596175252">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{6898A9E4-CA0D-49BD-9DF5-7CA4FABE7926}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A2A106A6-8469-43E7-BC98-9AFCB97DDC39}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="duckhunt" ID="{748BFE9D-ADFD-4735-9E2C-5E0972FE5D8D}">
+							<Language>SFX</Language>
+							<AudioFile>duckhunt.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="481562842"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="duckhunt" ID="{748BFE9D-ADFD-4735-9E2C-5E0972FE5D8D}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
