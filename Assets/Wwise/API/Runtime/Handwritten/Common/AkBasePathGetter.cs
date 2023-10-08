@@ -1,20 +1,9 @@
 #if !(UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2012 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
 
 /// <summary>
 ///     This class is responsible for determining the path where sound banks are located. When using custom platforms, this
@@ -51,7 +40,6 @@ public partial class AkBasePathGetter
 public partial class AkBasePathGetter
 {
 	public static readonly string DefaultBasePath = System.IO.Path.Combine("Audio", "GeneratedSoundBanks");
-	private const string DecodedBankFolder = "DecodedBanks";
 
 	private static bool LogWarnings_Internal = true;
 	public static bool LogWarnings
@@ -81,9 +69,7 @@ public partial class AkBasePathGetter
 		if (string.IsNullOrEmpty(fullBasePath))
 			fullBasePath = AkWwiseInitializationSettings.ActivePlatformSettings.SoundbankPath;
 
-#if !UNITY_EDITOR && UNITY_WEBGL
-		fullBasePath = System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, fullBasePath);
-#elif UNITY_EDITOR || !UNITY_ANDROID
+#if UNITY_EDITOR || !UNITY_ANDROID
 		fullBasePath = System.IO.Path.Combine(UnityEngine.Application.streamingAssetsPath, fullBasePath);
 #endif
 
@@ -150,6 +136,7 @@ public partial class AkBasePathGetter
 	{
 		return System.IO.Path.Combine(GetWwiseProjectPath(), "GeneratedSoundBanks");
 	}
+	
 
 	/// <summary>
 	///     Determines the platform base path for use within the Editor.
@@ -212,18 +199,7 @@ public partial class AkBasePathGetter
 	}
 #endif
 
-	private static AkBasePathGetter Instance;
-	public static AkBasePathGetter Get()
-	{
-		if (Instance == null)
-		{
-			Instance = new AkBasePathGetter();
-			Instance.EvaluateGamePaths();
-		}
-		return Instance;
-	}
-
-	public void EvaluateGamePaths()
+	public static void EvaluateGamePaths()
 	{
 #if UNITY_SWITCH && !UNITY_EDITOR
 		// Calling Application.persistentDataPath crashes Switch
@@ -247,7 +223,6 @@ public partial class AkBasePathGetter
 		{
 			tempSoundBankBasePath = GetPlatformBasePath();
 
-#if !AK_WWISE_ADDRESSABLES //Don't log this if we're using addressables
 #if !UNITY_EDITOR && UNITY_ANDROID
 			// Can't use File.Exists on Android, assume banks are there
 			var InitBnkFound = true;
@@ -255,6 +230,7 @@ public partial class AkBasePathGetter
 			var InitBnkFound = System.IO.File.Exists(System.IO.Path.Combine(tempSoundBankBasePath, "Init.bnk"));
 #endif
 			
+#if !AK_WWISE_ADDRESSABLES && UNITY_ADDRESSBLES //Don't log this if we're using addressables
 			if (string.IsNullOrEmpty(tempSoundBankBasePath) || !InitBnkFound)
 			{
 				if (LogWarnings)
@@ -286,11 +262,13 @@ public partial class AkBasePathGetter
 		DecodedBankFullPath = tempDecodedBankFullPath;
 	}
 
-	public string SoundBankBasePath { get; private set; }
+	public static string SoundBankBasePath { get; private set; }
 
-	public string PersistentDataPath { get; private set; }
+	public static string PersistentDataPath { get; private set; }
 
-	public string DecodedBankFullPath { get; private set; }
+	private const string DecodedBankFolder = "DecodedBanks";
+
+	public static string DecodedBankFullPath { get; private set; }
 }
 
 #endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

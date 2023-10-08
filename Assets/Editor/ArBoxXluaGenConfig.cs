@@ -1,4 +1,4 @@
-﻿
+
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -37,7 +37,7 @@ public static class ArboxXluaGenConfig
                 typeof(ParticleSystem),
                 typeof(SkinnedMeshRenderer),
                 typeof(Renderer),
-                //typeof(WWW),
+                typeof(WWW),
                 typeof(WWWForm),
                 typeof(Light),
                 typeof(Mathf),
@@ -53,7 +53,7 @@ public static class ArboxXluaGenConfig
                 typeof(UnityEngine.Video.VideoClip),
                 typeof(UnityEngine.Video.VideoPlayer),
                 typeof(AudioClip),
-                //typeof(AudioSource),
+                typeof(AudioSource),
                 typeof(AudioListener),
                 typeof(Camera),
                 typeof(UnityEngine.Random),

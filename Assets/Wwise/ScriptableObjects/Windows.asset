@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ed90e7f0022f247a80a6d48696b9db, type: 3}
+  m_Script: {fileID: 11500000, guid: e9800c2e604a6994b8a9ee0db1ad6b48, type: 3}
   m_Name: Windows
   m_EditorClassIdentifier: 
   IgnorePropertyNameList: []
@@ -41,10 +41,10 @@ MonoBehaviour:
   - UserSettings.m_SpatialAudioSettings.m_CalcEmitterVirtualPosition
   - UserSettings.m_SpatialAudioSettings.m_UseObstruction
   - UserSettings.m_SpatialAudioSettings.m_UseOcclusion
-  - UserSettings.m_SpatialAudioSettings.m_LoadBalancingSpread
   - CommsSettings.m_PoolSize
   - CommsSettings.m_DiscoveryBroadcastPort
   - CommsSettings.m_CommandPort
+  - CommsSettings.m_NotificationPort
   - CommsSettings.m_InitializeSystemComms
   - CommsSettings.m_NetworkName
   - AdvancedSettings.m_IOMemorySize
@@ -62,15 +62,13 @@ MonoBehaviour:
   - AdvancedSettings.m_SoundBankPersistentDataPath
   - AdvancedSettings.m_DebugOutOfRangeCheckEnabled
   - AdvancedSettings.m_DebugOutOfRangeLimit
-  - AdvancedSettings.m_MemoryAllocationSizeLimit
-  - AdvancedSettings.m_MemoryDebugLevel
   UserSettings:
     m_BasePath: Audio\GeneratedSoundBanks
     m_StartupLanguage: English(US)
     m_EngineLogging: 1
     m_MaximumNumberOfPositioningPaths: 255
     m_CommandQueueSize: 262144
-    m_SamplesPerFrame: 512
+    m_SamplesPerFrame: 1024
     m_MainOutputSettings:
       m_AudioDeviceShareset: 
       m_DeviceID: 0
@@ -84,17 +82,16 @@ MonoBehaviour:
     m_NumberOfRefillsInVoice: 4
     m_SpatialAudioSettings:
       m_MaxSoundPropagationDepth: 8
-      m_MovementThreshold: 0.1
+      m_MovementThreshold: 1
       m_NumberOfPrimaryRays: 100
       m_MaxReflectionOrder: 1
-      m_MaxDiffractionOrder: 4
-      m_DiffractionOnReflectionsOrder: 2
       m_MaxPathLength: 10000
       m_CPULimitPercentage: 0
       m_EnableDiffractionOnReflections: 1
       m_EnableGeometricDiffractionAndTransmission: 1
       m_CalcEmitterVirtualPosition: 1
-      m_LoadBalancingSpread: 1
+      m_UseObstruction: 1
+      m_UseOcclusion: 1
   AdvancedSettings:
     m_IOMemorySize: 2097152
     m_TargetAutoStreamBufferLengthMs: 380
@@ -109,8 +106,6 @@ MonoBehaviour:
     m_RenderDuringFocusLoss: 0
     m_SoundBankPersistentDataPath: 
     m_UseAsyncOpen: 0
-    m_MemoryAllocationSizeLimit: 0
-    m_MemoryDebugLevel: 0
     MaxSystemAudioObjects: 128
   CommsSettings:
     m_PoolSize: 262144

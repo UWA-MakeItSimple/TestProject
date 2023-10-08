@@ -9,7 +9,7 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [ "!UNITY_SERVER" ],
+    "defineConstraints": [],
     "versionDefines": [
         {
             "name": "com.unity.addressables",

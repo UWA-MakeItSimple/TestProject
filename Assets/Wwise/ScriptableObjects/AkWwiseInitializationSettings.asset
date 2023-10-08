@@ -9,19 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8022c68f1ba9e9b4bb78df28155501c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 76f45e72d34e3e940a6e1c7750769089, type: 3}
   m_Name: AkWwiseInitializationSettings
   m_EditorClassIdentifier: 
   PlatformSettingsNameList:
   - Android
-  - iOS
-  - Mac
   - Windows
   PlatformSettingsList:
-  - {fileID: 11400000, guid: 77dcdcf59166512459abf626c5e66061, type: 2}
-  - {fileID: 11400000, guid: 6eed1e2bdc9ee4d47a117c13e67a987f, type: 2}
-  - {fileID: 11400000, guid: c904918be756c604884b37b0c42660a1, type: 2}
-  - {fileID: 11400000, guid: efd3bd5e5ee8f5e4985d70780c5f64c4, type: 2}
+  - {fileID: 11400000, guid: 7afabb5fd9c21904fb9edb452789549a, type: 2}
+  - {fileID: 11400000, guid: c62109fdfc40e1340ad3374cd84189e6, type: 2}
   InvalidReferencePlatforms: []
   UserSettings:
     m_BasePath: Audio\GeneratedSoundBanks
@@ -29,7 +25,7 @@ MonoBehaviour:
     m_EngineLogging: 1
     m_MaximumNumberOfPositioningPaths: 255
     m_CommandQueueSize: 262144
-    m_SamplesPerFrame: 512
+    m_SamplesPerFrame: 1024
     m_MainOutputSettings:
       m_AudioDeviceShareset: 
       m_DeviceID: 0
@@ -43,17 +39,16 @@ MonoBehaviour:
     m_NumberOfRefillsInVoice: 4
     m_SpatialAudioSettings:
       m_MaxSoundPropagationDepth: 8
-      m_MovementThreshold: 0.1
+      m_MovementThreshold: 1
       m_NumberOfPrimaryRays: 100
       m_MaxReflectionOrder: 1
-      m_MaxDiffractionOrder: 4
-      m_DiffractionOnReflectionsOrder: 2
       m_MaxPathLength: 10000
       m_CPULimitPercentage: 0
       m_EnableDiffractionOnReflections: 1
       m_EnableGeometricDiffractionAndTransmission: 1
       m_CalcEmitterVirtualPosition: 1
-      m_LoadBalancingSpread: 1
+      m_UseObstruction: 1
+      m_UseOcclusion: 1
   AdvancedSettings:
     m_IOMemorySize: 2097152
     m_TargetAutoStreamBufferLengthMs: 380
@@ -68,8 +63,6 @@ MonoBehaviour:
     m_RenderDuringFocusLoss: 0
     m_SoundBankPersistentDataPath: 
     m_UseAsyncOpen: 0
-    m_MemoryAllocationSizeLimit: 0
-    m_MemoryDebugLevel: 0
   CommsSettings:
     m_PoolSize: 262144
     m_DiscoveryBroadcastPort: 24024

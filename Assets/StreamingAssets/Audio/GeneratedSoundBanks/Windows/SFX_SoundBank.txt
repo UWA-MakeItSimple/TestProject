@@ -11,13 +11,13 @@ Event	ID	Name			Wwise Object Path	Notes
 	3689126666	Play_jump			\Default Work Unit\Play_jump	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	78319125	狗跳入草丛	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\狗跳入草丛_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\狗跳入草丛		96864
-	126532286	没打中鸭子狗笑音效	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\没打中鸭子狗笑音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\没打中鸭子狗笑音效		154464
-	288543941	鸭子扇翅膀音效	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\鸭子扇翅膀音效_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\鸭子扇翅膀音效		18528
-	316972238	打中后狗捡到鸭子音效	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\打中后狗捡到鸭子音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\打中后狗捡到鸭子音效		96864
-	391294492	枪声	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\枪声_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声		85344
-	563936632	GAMEOVER	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\GAMEOVER_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\GAMEOVER		566880
-	580246000	开始音效	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\开始音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\开始音效		536928
-	914487667	结束音效	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\结束音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\结束音效		398688
-	1072788140	枪声-打中鸭子坠落	D:\Projects\Unity\TestProject-main-wwise\TestProject-main-wwise_WwiseProject\.cache\Windows\SFX\DuckHuntWAV\枪声-打中鸭子坠落_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声-打中鸭子坠落		136032
+	215375179	开始音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\开始音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\开始音效		536896
+	291105583	鸭子扇翅膀音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\鸭子扇翅膀音效_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\鸭子扇翅膀音效		18496
+	295602812	打中后狗捡到鸭子音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\打中后狗捡到鸭子音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\打中后狗捡到鸭子音效		96832
+	538911624	没打中鸭子狗笑音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\没打中鸭子狗笑音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\没打中鸭子狗笑音效		154432
+	679605132	狗跳入草丛	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\狗跳入草丛_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\狗跳入草丛		96832
+	705357181	枪声	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\枪声_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声		85312
+	773731890	枪声-打中鸭子坠落	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\枪声-打中鸭子坠落_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\枪声-打中鸭子坠落		136000
+	821082758	GAMEOVER	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\GAMEOVER_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\GAMEOVER		566848
+	904984344	结束音效	D:\Projects\Unity\TestProject2019\Assets\Wwise\notwise\.cache\Windows\SFX\DuckHuntWAV\结束音效_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\DuckHuntWAV\结束音效		398656
 

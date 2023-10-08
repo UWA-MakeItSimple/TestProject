@@ -1,20 +1,9 @@
 #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
 
 public abstract class AkObstructionOcclusion : UnityEngine.MonoBehaviour
 {
@@ -48,7 +37,7 @@ public abstract class AkObstructionOcclusion : UnityEngine.MonoBehaviour
 
 	protected void InitIntervalsAndFadeRates()
 	{
-		refreshTime = refreshInterval + UnityEngine.Random.Range(0.0f, refreshInterval);
+		refreshTime = UnityEngine.Random.Range(0.0f, refreshInterval);
 		fadeRate = 1 / fadeTime;
 	}
 
@@ -60,31 +49,25 @@ public abstract class AkObstructionOcclusion : UnityEngine.MonoBehaviour
 		for (var i = 0; i < currentListenerList.Count; ++i)
 		{
 			if (!ObstructionOcclusionValues.ContainsKey(currentListenerList[i]))
-			{
 				ObstructionOcclusionValues.Add(currentListenerList[i], new ObstructionOcclusionValue());
-			}
 		}
 
 		// remove listeners
 		foreach (var ObsOccPair in ObstructionOcclusionValues)
 		{
 			if (!currentListenerList.Contains(ObsOccPair.Key))
-			{
 				listenersToRemove.Add(ObsOccPair.Key);
-			}
 		}
 
 		for (var i = 0; i < listenersToRemove.Count; ++i)
-		{
 			ObstructionOcclusionValues.Remove(listenersToRemove[i]);
-		}
 
 		listenersToRemove.Clear();
 	}
 
 	private void CastRays()
 	{
-		if (refreshTime >= refreshInterval)
+		if (refreshTime > refreshInterval)
 		{
 			refreshTime -= refreshInterval;
 
@@ -97,9 +80,7 @@ public abstract class AkObstructionOcclusion : UnityEngine.MonoBehaviour
 				var magnitude = difference.magnitude;
 
 				if (maxDistance > 0 && magnitude > maxDistance)
-				{
 					ObsOccValue.targetValue = ObsOccValue.currentValue;
-				}
 				else
 				{
 					ObsOccValue.targetValue =
@@ -125,9 +106,7 @@ public abstract class AkObstructionOcclusion : UnityEngine.MonoBehaviour
 		foreach (var ObsOccPair in ObstructionOcclusionValues)
 		{
 			if (ObsOccPair.Value.Update(fadeRate))
-			{
 				SetObstructionOcclusion(ObsOccPair);
-			}
 		}
 	}
 
@@ -139,9 +118,7 @@ public abstract class AkObstructionOcclusion : UnityEngine.MonoBehaviour
 		public bool Update(float fadeRate)
 		{
 			if (UnityEngine.Mathf.Approximately(targetValue, currentValue))
-			{
 				return false;
-			}
 
 			currentValue += fadeRate * UnityEngine.Mathf.Sign(targetValue - currentValue) * UnityEngine.Time.deltaTime;
 			currentValue = UnityEngine.Mathf.Clamp(currentValue, 0.0f, 1.0f);

@@ -1,22 +1,4 @@
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
-
 #if !(UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
-using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -104,7 +86,7 @@ public partial class AkUtilities
 
 	public static bool IsSoundbankGenerationAvailable()
 	{
-		return GetWwiseConsole() != null;
+		return GetWwiseCLI() != null;
 	}
 
 	/// Executes a command-line. Blocks the calling thread until the new process has completed. Returns the logged stdout in one big string.
@@ -132,7 +114,7 @@ public partial class AkUtilities
 		return output;
 	}
 
-	private static string GetWwiseConsole()
+	private static string GetWwiseCLI()
 	{
 		string result = null;
 
@@ -141,14 +123,14 @@ public partial class AkUtilities
 #if UNITY_EDITOR_WIN
 		if (!string.IsNullOrEmpty(settings.WwiseInstallationPathWindows))
 		{
-			result = System.IO.Path.Combine(settings.WwiseInstallationPathWindows, @"Authoring\x64\Release\bin\WwiseConsole.exe");
+			result = System.IO.Path.Combine(settings.WwiseInstallationPathWindows, @"Authoring\x64\Release\bin\WwiseCLI.exe");
 
 			if (!System.IO.File.Exists(result))
-				result = System.IO.Path.Combine(settings.WwiseInstallationPathWindows, @"Authoring\Win32\Release\bin\WwiseConsole.exe");
+				result = System.IO.Path.Combine(settings.WwiseInstallationPathWindows, @"Authoring\Win32\Release\bin\WwiseCLI.exe");
 		}
 #elif UNITY_EDITOR_OSX
 		if (!string.IsNullOrEmpty(settings.WwiseInstallationPathMac))
-			result = System.IO.Path.Combine(settings.WwiseInstallationPathMac, "Contents/Tools/WwiseConsole.sh");
+			result = System.IO.Path.Combine(settings.WwiseInstallationPathMac, "Contents/Tools/WwiseCLI.sh");
 #endif
 
 		if (result != null && System.IO.File.Exists(result))
@@ -172,36 +154,36 @@ public partial class AkUtilities
 				"The SoundBank generation process ignores the SoundBank Settings' Overrides currently enabled in the User settings. The project's SoundBank settings will be used.");
 		}
 
-		var wwiseConsole = GetWwiseConsole();
-		if (wwiseConsole == null)
+		var wwiseCli = GetWwiseCLI();
+		if (wwiseCli == null)
 		{
-			UnityEngine.Debug.LogError("Couldn't locate WwiseConsole, unable to generate SoundBanks.");
+			UnityEngine.Debug.LogError("Couldn't locate WwiseCLI, unable to generate SoundBanks.");
 			return;
 		}
 
 #if UNITY_EDITOR_WIN
-		var command = wwiseConsole;
+		var command = wwiseCli;
 		var arguments = "";
 #elif UNITY_EDITOR_OSX
 		var command = "/bin/sh";
-		var arguments = "\"" + wwiseConsole + "\"";
+		var arguments = "\"" + wwiseCli + "\"";
 #else
 		var command = "";
 		var arguments = "";
 #endif
-		arguments += " generate-soundbank";
 
-		arguments += " \"" + wwiseProjectFullPath.Replace("\"","") + "\"";
+		arguments += " \"" + wwiseProjectFullPath + "\"";
 
-		if (platforms != null && platforms.Count() >0)
+		if (platforms != null)
 		{
-			arguments += " --platform";
 			foreach (var platform in platforms)
 			{
 				if (!string.IsNullOrEmpty(platform))
-					arguments += " " + platform;
+					arguments += " -Platform " + platform;
 			}
 		}
+
+		arguments += " -GenerateSoundBanks";
 
 		var output = ExecuteCommandLine(command, arguments);
 		if (output.Contains("Process completed successfully."))
@@ -281,7 +263,7 @@ public partial class AkUtilities
 			if (WwiseProjectPath.Length == 0)
 				return;
 
-			if (!AkUtilities.IsWwiseProjectAvailable)
+			if (!System.IO.File.Exists(WwiseProjectPath))
 				return;
 
 			var t = System.IO.File.GetLastWriteTime(WwiseProjectPath);
@@ -682,6 +664,37 @@ public partial class AkUtilities
 		return false;
 	}
 
+	///This function returns the absolute position and the width and height of the last drawn GuiLayout(or EditorGuiLayout) element in the inspector window.
+	///This function must be called in the OnInspectorGUI function
+	/// 
+	///The inspector must be in repaint mode in order to get the correct position 
+	///Example => if(Event.current.type == EventType.Repaint) Rect pos = AkUtilities.GetLastRectAbsolute();
+	public static UnityEngine.Rect GetLastRectAbsolute(UnityEngine.Rect relativePos)
+	{
+		var lastRectAbsolute = relativePos;
+		try
+		{
+			lastRectAbsolute.x += UnityEditor.EditorWindow.focusedWindow.position.x;
+			lastRectAbsolute.y += UnityEditor.EditorWindow.focusedWindow.position.y;
+
+			var inspectorType = UnityEditor.EditorWindow.focusedWindow.GetType();
+			var currentInspectorFieldInfo = inspectorType.GetField("s_CurrentInspectorWindow",
+				System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+
+			var scrollPosInfo = inspectorType.GetField("m_ScrollPosition",
+				System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+			var scrollPos = (UnityEngine.Vector2)scrollPosInfo.GetValue(currentInspectorFieldInfo.GetValue(null));
+			lastRectAbsolute.x -= scrollPos.x;
+			lastRectAbsolute.y -= scrollPos.y;
+		}
+		catch
+		{
+		}
+
+		return lastRectAbsolute;
+	}
+
 	public static void RepaintInspector()
 	{
 		var windows = UnityEngine.Resources.FindObjectsOfTypeAll<UnityEditor.EditorWindow>();
@@ -803,34 +816,18 @@ public partial class AkUtilities
 		const string AssetWwisePathParent = "Assets/Wwise/API/";
 		const string PackageWwisePathParent = "Packages/com.audiokinetic.wwise.api/";
 
-		string rootpath = "";
 		if (System.IO.Directory.Exists(System.IO.Path.GetFullPath(PackageWwisePathParent)))
 		{
-			rootpath = PackageWwisePathParent;
+			return System.IO.Path.Combine(PackageWwisePathParent, relativePath);
 		}
 		else if (System.IO.Directory.Exists(System.IO.Path.GetFullPath(AssetWwisePathParent)))
 		{
-
-			rootpath = AssetWwisePathParent;
+			return System.IO.Path.Combine(AssetWwisePathParent, relativePath);
 		}
-		else 
+		else
 		{
 			return string.Empty;
-		} 
-
-		var relativePathFolders = new System.Collections.Generic.List<string>(relativePath.Split('/'));
-		var rootPathFolders = new System.Collections.Generic.List<string>(rootpath.Split('/'));
-		var overlap = relativePathFolders.Intersect(rootPathFolders);
-		if (overlap.Count() > 0)
-		{
-			UnityEngine.Debug.LogWarning("AkUtilities.GetPathInPackage(): relativePath contains overlapping folder names with root path.\nrelativePath: " 
-				+ relativePath
-				+ "\nroot path: "
-				+ rootpath
-				+ "\n This could cause issues with plugins activation and packaging.");
 		}
-
-		return System.IO.Path.Combine(rootpath, relativePath);
 	}
 
 	/// <summary>

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b2dfc7bac0f7a840a6b795172106530, type: 3}
+  m_Script: {fileID: 11500000, guid: 7653fcf0e02fa21418cc562ca9d40672, type: 3}
   m_Name: AkWwiseProjectData
   m_EditorClassIdentifier: 
   AcousticTextureWwu:
@@ -20,11 +20,11 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: 91b427d33975484f914b6df3a64161b6
+      guid: fcdc56f855a5ef45a5f11b359a1803e5
     ParentPath: Virtual Acoustics\Default Work Unit
-    guid: 91b427d33975484f914b6df3a64161b6
+    guid: fcdc56f855a5ef45a5f11b359a1803e5
     GuidInternal: 
-    m_lastTime: -8585065002781492434
+    m_lastTime: -8585049324567440186
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -34,11 +34,11 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: c26e1ce8019de544a51ef6df9ba66afd
+      guid: a606a1a26984e743bc989afcb97ddc39
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
-    guid: c26e1ce8019de544a51ef6df9ba66afd
+    guid: a606a1a26984e743bc989afcb97ddc39
     GuidInternal: 
-    m_lastTime: -8585065002781601361
+    m_lastTime: -8585049324567764348
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -49,7 +49,7 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: c26e1ce8019de544a51ef6df9ba66afd
+        guid: a606a1a26984e743bc989afcb97ddc39
       - ElementName: Master Audio Bus
         ObjectType: 2
         guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -62,14 +62,14 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: d8e9d7feff1db146ba47a7ff2f571e19
+      guid: d7a98e7de6d80344838f56f3c98253e2
     ParentPath: SoundBanks\Default Work Unit
-    guid: d8e9d7feff1db146ba47a7ff2f571e19
+    guid: d7a98e7de6d80344838f56f3c98253e2
     GuidInternal: 
-    m_lastTime: -8585064881342879002
+    m_lastTime: -8585048747960593612
     List:
     - name: MM_SoundBank
-      guid: b27a1035e62913479a129bc162fb45a7
+      guid: e702181577801e44af564865a16f4833
       id: 693646761
       PathAndIcons:
       - ElementName: SoundBanks
@@ -77,13 +77,13 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: d8e9d7feff1db146ba47a7ff2f571e19
+        guid: d7a98e7de6d80344838f56f3c98253e2
       - ElementName: MM_SoundBank
         ObjectType: 7
-        guid: b27a1035e62913479a129bc162fb45a7
+        guid: e702181577801e44af564865a16f4833
       Path: SoundBanks\Default Work Unit\MM_SoundBank
     - name: SFX_SoundBank
-      guid: 29216310ddb58749b47501cfdbbbade7
+      guid: ecce58da0b7a824ab34e6fcb13486e3d
       id: 2641024368
       PathAndIcons:
       - ElementName: SoundBanks
@@ -91,10 +91,10 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: d8e9d7feff1db146ba47a7ff2f571e19
+        guid: d7a98e7de6d80344838f56f3c98253e2
       - ElementName: SFX_SoundBank
         ObjectType: 7
-        guid: 29216310ddb58749b47501cfdbbbade7
+        guid: ecce58da0b7a824ab34e6fcb13486e3d
       Path: SoundBanks\Default Work Unit\SFX_SoundBank
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
@@ -104,14 +104,14 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: 7550f737b54ad748a586d7bcc2484e37
+      guid: e82974e90fca384fbeb22248ad4311f7
     ParentPath: Events\Default Work Unit
-    guid: 7550f737b54ad748a586d7bcc2484e37
+    guid: e82974e90fca384fbeb22248ad4311f7
     GuidInternal: 
-    m_lastTime: -8585064881342860048
+    m_lastTime: -8585048752927802947
     List:
     - name: Play_bgm
-      guid: 81c2a6344066a544b87d3905dbd4f30b
+      guid: 7ee5bc052ad100449731b237ec8b3da6
       id: 3126765036
       PathAndIcons:
       - ElementName: Events
@@ -119,16 +119,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_bgm
         ObjectType: 3
-        guid: 81c2a6344066a544b87d3905dbd4f30b
+        guid: 7ee5bc052ad100449731b237ec8b3da6
       Path: Events\Default Work Unit\Play_bgm
       maxAttenuation: 0
       maxDuration: 83.06498
       minDuration: 83.06498
     - name: Play_drop
-      guid: 476128b563bf3844ace166b0a0e1349d
+      guid: 2fd26cb608cef545870c06f50d67fd24
       id: 2007351433
       PathAndIcons:
       - ElementName: Events
@@ -136,16 +136,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_drop
         ObjectType: 3
-        guid: 476128b563bf3844ace166b0a0e1349d
+        guid: 2fd26cb608cef545870c06f50d67fd24
       Path: Events\Default Work Unit\Play_drop
       maxAttenuation: 0
       maxDuration: 1.416
       minDuration: 1.416
     - name: Play_fin
-      guid: 6b07df2e711b9d42bb8b72fac6e888ca
+      guid: 486ca492e215c24086f6b48d4f2b08c9
       id: 2891289973
       PathAndIcons:
       - ElementName: Events
@@ -153,16 +153,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_fin
         ObjectType: 3
-        guid: 6b07df2e711b9d42bb8b72fac6e888ca
+        guid: 486ca492e215c24086f6b48d4f2b08c9
       Path: Events\Default Work Unit\Play_fin
       maxAttenuation: 0
       maxDuration: 4.152
       minDuration: 4.152
     - name: Play_flyloop
-      guid: 88ab7501b07780449ad68ddac1bad60d
+      guid: da8b5e19ad7fcc4ea3efc58dfa0448f3
       id: 1446251023
       PathAndIcons:
       - ElementName: Events
@@ -170,16 +170,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_flyloop
         ObjectType: 3
-        guid: 88ab7501b07780449ad68ddac1bad60d
+        guid: da8b5e19ad7fcc4ea3efc58dfa0448f3
       Path: Events\Default Work Unit\Play_flyloop
       maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_gun
-      guid: c71dd546a44de9459fff6f965ba1808a
+      guid: b8387a25ca00fc4c94c3f6dd8d23877d
       id: 2622995180
       PathAndIcons:
       - ElementName: Events
@@ -187,16 +187,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_gun
         ObjectType: 3
-        guid: c71dd546a44de9459fff6f965ba1808a
+        guid: b8387a25ca00fc4c94c3f6dd8d23877d
       Path: Events\Default Work Unit\Play_gun
       maxAttenuation: 0
       maxDuration: 0.888
       minDuration: 0.888
     - name: Play_jump
-      guid: ffe7ac3430067f40b1f864e4cb24b4fb
+      guid: af4b3e7ac414224ab8c4da6caecb1ccf
       id: 3689126666
       PathAndIcons:
       - ElementName: Events
@@ -204,16 +204,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_jump
         ObjectType: 3
-        guid: ffe7ac3430067f40b1f864e4cb24b4fb
+        guid: af4b3e7ac414224ab8c4da6caecb1ccf
       Path: Events\Default Work Unit\Play_jump
       maxAttenuation: 0
       maxDuration: 1.008
       minDuration: 1.008
     - name: Play_lol
-      guid: bbd18ed45acc3e4e9220b077f369f20f
+      guid: 95a43194fd3b3a4f9c0cbd9efe6bbe23
       id: 2456646015
       PathAndIcons:
       - ElementName: Events
@@ -221,16 +221,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_lol
         ObjectType: 3
-        guid: bbd18ed45acc3e4e9220b077f369f20f
+        guid: 95a43194fd3b3a4f9c0cbd9efe6bbe23
       Path: Events\Default Work Unit\Play_lol
       maxAttenuation: 0
       maxDuration: 1.608
       minDuration: 1.608
     - name: Play_over
-      guid: e1310c53eea2ae4caf73b6f8e0f1548d
+      guid: 87927b91a863d7469ed580ca02f1c64b
       id: 2348692292
       PathAndIcons:
       - ElementName: Events
@@ -238,16 +238,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_over
         ObjectType: 3
-        guid: e1310c53eea2ae4caf73b6f8e0f1548d
+        guid: 87927b91a863d7469ed580ca02f1c64b
       Path: Events\Default Work Unit\Play_over
       maxAttenuation: 0
       maxDuration: 5.904
       minDuration: 5.904
     - name: Play_pick
-      guid: 28886e3852caf5429f03c4c77fddf77b
+      guid: 0c2092f2bb0591428386028ece047924
       id: 1350180013
       PathAndIcons:
       - ElementName: Events
@@ -255,16 +255,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_pick
         ObjectType: 3
-        guid: 28886e3852caf5429f03c4c77fddf77b
+        guid: 0c2092f2bb0591428386028ece047924
       Path: Events\Default Work Unit\Play_pick
       maxAttenuation: 0
       maxDuration: 1.008
       minDuration: 1.008
     - name: Play_start
-      guid: 78add3e41f4e614abbd036de2d2f81f7
+      guid: d561b85cd9f1674c91705e1959b8d9d3
       id: 2230670290
       PathAndIcons:
       - ElementName: Events
@@ -272,16 +272,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Play_start
         ObjectType: 3
-        guid: 78add3e41f4e614abbd036de2d2f81f7
+        guid: d561b85cd9f1674c91705e1959b8d9d3
       Path: Events\Default Work Unit\Play_start
       maxAttenuation: 0
       maxDuration: 5.592
       minDuration: 5.592
     - name: Stop_bgm
-      guid: bf8e21c08fb2da46a5c07bb24f131625
+      guid: bac2b1e7a177f941a30809f096200d44
       id: 1073466678
       PathAndIcons:
       - ElementName: Events
@@ -289,16 +289,16 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Stop_bgm
         ObjectType: 3
-        guid: bf8e21c08fb2da46a5c07bb24f131625
+        guid: bac2b1e7a177f941a30809f096200d44
       Path: Events\Default Work Unit\Stop_bgm
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Stop_flyloop
-      guid: a16ea8e067a5e14f83998df67817abb0
+      guid: ab12cf6719b3f340806310bdac780958
       id: 2981461541
       PathAndIcons:
       - ElementName: Events
@@ -306,10 +306,10 @@ MonoBehaviour:
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: 7550f737b54ad748a586d7bcc2484e37
+        guid: e82974e90fca384fbeb22248ad4311f7
       - ElementName: Stop_flyloop
         ObjectType: 3
-        guid: a16ea8e067a5e14f83998df67817abb0
+        guid: ab12cf6719b3f340806310bdac780958
       Path: Events\Default Work Unit\Stop_flyloop
       maxAttenuation: 0
       maxDuration: 0
@@ -322,11 +322,11 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: b80f4261fc82034483b279de0a81a555
+      guid: 881420bbfccddd40a09a039d73f60dd8
     ParentPath: Game Parameters\Default Work Unit
-    guid: b80f4261fc82034483b279de0a81a555
+    guid: 881420bbfccddd40a09a039d73f60dd8
     GuidInternal: 
-    m_lastTime: -8585065002781411329
+    m_lastTime: -8585049324567639682
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
@@ -336,11 +336,11 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: ca1641c5e1d56f43b0c62c9b2c81db0b
+      guid: 5c439fbfb86b344e9af317a573b6269e
     ParentPath: States\Default Work Unit
-    guid: ca1641c5e1d56f43b0c62c9b2c81db0b
+    guid: 5c439fbfb86b344e9af317a573b6269e
     GuidInternal: 
-    m_lastTime: -8585065002781541964
+    m_lastTime: -8585049324567671629
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
@@ -350,11 +350,11 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: 3bf66c919686a64fb0dfb3ae1c65944c
+      guid: d1c6a610a3e76048807536023857610c
     ParentPath: Switches\Default Work Unit
-    guid: 3bf66c919686a64fb0dfb3ae1c65944c
+    guid: d1c6a610a3e76048807536023857610c
     GuidInternal: 
-    m_lastTime: -8585065002781581096
+    m_lastTime: -8585049324567687013
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
@@ -364,14 +364,14 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: 984276165ec6f7438aa68867ea51713f
+      guid: 0b66223504730c4da592c0c2f5e3b7c5
     ParentPath: Triggers\Default Work Unit
-    guid: 984276165ec6f7438aa68867ea51713f
+    guid: 0b66223504730c4da592c0c2f5e3b7c5
     GuidInternal: 
-    m_lastTime: -8585065002781512686
+    m_lastTime: -8585049324567624344
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0500000006000000070000001300000014000000d0000000d1000000
+  ExpandedWaapiItemIds: 060000000700000013000000140000001600000017000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

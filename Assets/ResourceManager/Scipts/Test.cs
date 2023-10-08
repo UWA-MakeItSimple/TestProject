@@ -162,7 +162,7 @@ public class Test : MonoBehaviour
     {
         // AudioSource.Play
         var audioSource = gameObject.GetComponent<AudioSource>();
-        audioSource.Play();
+        audioSource?.Play();
         // GameObject.AddComponent
         gameObject.AddComponent<Light>();
         //CharacterController.Move

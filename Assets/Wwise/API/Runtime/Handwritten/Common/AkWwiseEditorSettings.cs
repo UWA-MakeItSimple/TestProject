@@ -1,20 +1,3 @@
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
-
 #if !(UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
 #if UNITY_EDITOR
 
@@ -41,7 +24,6 @@ public class WwiseSettings
 	public bool CreatedPicker = false;
 	public bool CreateWwiseGlobal = true;
 	public bool CreateWwiseListener = true;
-	public bool ObjectReferenceAutoCleanup = true;
 	public bool ShowMissingRigidBodyWarning = true;
 	public bool ShowSpatialAudioWarningMsg = true;
 	public string WwiseInstallationPathMac;
@@ -51,10 +33,6 @@ public class WwiseSettings
 	public bool UseWaapi = true;
 	public string WaapiPort = "8080";
 	public string WaapiIP = "127.0.0.1";
-
-	public string XMLTranslatorTimeout = "10";	//Timeout (in ms) for error translator through SoundBanksInfo.xml. Set to 0 to disable.
-	public string WaapiTranslatorTimeout = "0"; //Timeout (in ms) for error translator through WAAPI. Set to 0 to disable.
-
 
 	[System.Xml.Serialization.XmlIgnore]
 	public string WwiseInstallationPath
@@ -186,7 +164,7 @@ public class AkWwiseEditorSettings
 		get { return System.IO.Path.Combine(System.IO.Path.Combine("Assets", "Wwise"), "ScriptableObjects"); }
 	}
 
-#region GUI
+	#region GUI
 #if UNITY_2018_3_OR_NEWER
 	class SettingsProvider : UnityEditor.SettingsProvider
 #else
@@ -212,20 +190,16 @@ public class AkWwiseEditorSettings
 
 			public static string GlobalSettings = "Global Settings";
 			public static UnityEngine.GUIContent CreateWwiseGlobal = new UnityEngine.GUIContent("Create WwiseGlobal GameObject", "The WwiseGlobal object is a GameObject that contains the Initializing and Terminating scripts for the Wwise Sound Engine. In the Editor workflow, it is added to every scene, so that it can be properly previewed in the Editor. In the game, only one instance is created, in the first scene, and it is persisted throughout the game. It is recommended to leave this box checked.");
-			public static UnityEngine.GUIContent CreateWwiseListener = new UnityEngine.GUIContent("Add Listener to Main Camera", "In order for positioning to work, the AkAudioListener script needs to be attached to the main camera in every scene. If you wish for your listener to be attached to another GameObject, uncheck this box.");
-			public static UnityEngine.GUIContent ObjectReferenceAutoCleanup = new UnityEngine.GUIContent("Auto-delete WwiseObjectReferences", "Components that reference Wwise objects such as Events, Banks, and Busses track these references using WwiseObjectReference assets that are created in the Wwise/ScriptableObjects folder. If this option is checked and a Wwise Object has been removed from the Wwise Project, when parsing the Wwise project structure, the corresponding asset in the Wwise/ScriptableObjects folder will be deleted.");
+			public static UnityEngine.GUIContent CreateWwiseListener = new UnityEngine.GUIContent("Add Listener to Main Camera", "In order for positioning to work, the AkAudioListener script needs to be attached to the main camera in every scene. If you wish for your listener to be attached to another GameObject, uncheck this box");
 
 			public static string InEditorWarnings = "In Editor Warnings";
-			public static UnityEngine.GUIContent ShowSpatialAudioWarningMsg = new UnityEngine.GUIContent("Show Spatial Audio Warnings", "Warnings will be displayed on Wwise components that are not configured for Spatial Audio to function properly. It is recommended to leave this box checked.");
+			public static UnityEngine.GUIContent ShowMissingRigidBodyWarning = new UnityEngine.GUIContent("Show warning for missing RigidBody", "Interactions between AkGameObj and AkEnvironment or AkRoom require a Rigidbody component on the object or the environment/room. It is recommended to leave this box checked.");
+			public static UnityEngine.GUIContent ShowSpatialAudioWarningMsg = new UnityEngine.GUIContent("Show warning for missing Collider", "Interactions between AkRoomAwareObject and AkRoom require a Collider component on the object. It is recommended to leave this box checked.");
 
 			public static string WaapiSection = "Wwise Authoring API (WAAPI)";
 			public static UnityEngine.GUIContent UseWaapi = new UnityEngine.GUIContent("Connect to Wwise");
 			public static UnityEngine.GUIContent WaapiIP = new UnityEngine.GUIContent("WAAPI IP address");
 			public static UnityEngine.GUIContent WaapiPort = new UnityEngine.GUIContent("WAAPI port");
-
-			public static string TranslatorSection = "Wwise Error Message Translator";
-			public static UnityEngine.GUIContent XMLTranslatorTimeout = new UnityEngine.GUIContent("XML Translator Timeout", "Maximum time (ms) taken to convert numeric ID in errors through SoundBankInfo.xml. Set to 0 to disable. Change will be applied next time play mode is entered.");
-			public static UnityEngine.GUIContent WaapiTranslatorTimeout = new UnityEngine.GUIContent("WAAPI Translator Timeout", "Maximum time (ms) taken to convert numeric ID in errors through WAAPI. Set to 0 to disable. Change will be applied next time play mode is entered.");
 
 			public static string MandatorySettings = "* Mandatory settings";
 
@@ -469,7 +443,6 @@ public class AkWwiseEditorSettings
 			{
 				settings.CreateWwiseGlobal = UnityEditor.EditorGUILayout.Toggle(Styles.CreateWwiseGlobal, settings.CreateWwiseGlobal);
 				settings.CreateWwiseListener = UnityEditor.EditorGUILayout.Toggle(Styles.CreateWwiseListener, settings.CreateWwiseListener);
-				settings.ObjectReferenceAutoCleanup = UnityEditor.EditorGUILayout.Toggle(Styles.ObjectReferenceAutoCleanup, settings.ObjectReferenceAutoCleanup);
 			}
 
 			UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
@@ -477,6 +450,7 @@ public class AkWwiseEditorSettings
 
 			using (new UnityEngine.GUILayout.VerticalScope("box"))
 			{
+				settings.ShowMissingRigidBodyWarning = UnityEditor.EditorGUILayout.Toggle(Styles.ShowMissingRigidBodyWarning, settings.ShowMissingRigidBodyWarning);
 				settings.ShowSpatialAudioWarningMsg = UnityEditor.EditorGUILayout.Toggle(Styles.ShowSpatialAudioWarningMsg, settings.ShowSpatialAudioWarningMsg);
 			}
 
@@ -487,14 +461,6 @@ public class AkWwiseEditorSettings
 				settings.UseWaapi = UnityEditor.EditorGUILayout.Toggle(Styles.UseWaapi, settings.UseWaapi);
 				settings.WaapiPort = UnityEditor.EditorGUILayout.TextField(Styles.WaapiPort, settings.WaapiPort);
 				settings.WaapiIP = UnityEditor.EditorGUILayout.TextField(Styles.WaapiIP, settings.WaapiIP);
-			}
-
-			UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
-			UnityEngine.GUILayout.Label(Styles.TranslatorSection, UnityEditor.EditorStyles.boldLabel);
-			using (new UnityEngine.GUILayout.VerticalScope("box"))
-			{
-				settings.XMLTranslatorTimeout = UnityEditor.EditorGUILayout.TextField(Styles.XMLTranslatorTimeout, settings.XMLTranslatorTimeout);
-				settings.WaapiTranslatorTimeout = UnityEditor.EditorGUILayout.TextField(Styles.WaapiTranslatorTimeout, settings.WaapiTranslatorTimeout);
 			}
 
 			if (UnityEditor.EditorGUI.EndChangeCheck())
@@ -508,7 +474,7 @@ public class AkWwiseEditorSettings
 			if (changed)
 				settings.SaveSettings();
 		}
-#endregion
+		#endregion
 	}
 }
 #endif // UNITY_EDITOR

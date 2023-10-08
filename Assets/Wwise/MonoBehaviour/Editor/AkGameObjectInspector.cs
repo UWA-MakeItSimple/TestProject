@@ -1,20 +1,9 @@
-#if UNITY_EDITOR
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
+﻿#if UNITY_EDITOR
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
 
 public class DefaultHandles
 {
@@ -132,19 +121,10 @@ public class AkGameObjectInspector : UnityEditor.Editor
 
 			m_AkGameObject.m_positionOffsetData = positionOffsetData;
 
-			var posOffsetDataProperty = serializedObject.FindProperty("m_positionOffsetData");
-			var KeepMeProperty = posOffsetDataProperty.FindPropertyRelative("KeepMe");
-			KeepMeProperty.boolValue = (positionOffsetData != null);
 			if (positionOffsetData != null)
-			{
-				var posOffsetProperty = posOffsetDataProperty.FindPropertyRelative("positionOffset");
-				posOffsetProperty.vector3Value = positionOffset;
-			}
-			
-			var isEnvironmentAwareProperty = serializedObject.FindProperty("isEnvironmentAware");
-			isEnvironmentAwareProperty.boolValue = isEnvironmentAware;
+				m_AkGameObject.m_positionOffsetData.positionOffset = positionOffset;
 
-			serializedObject.ApplyModifiedProperties();
+			m_AkGameObject.isEnvironmentAware = isEnvironmentAware;
 		}
 
 		if (isEnvironmentAware)
@@ -163,7 +143,7 @@ public class AkGameObjectInspector : UnityEditor.Editor
 
 	public static void RigidbodyCheck(UnityEngine.GameObject gameObject)
 	{
-		if (AkWwiseEditorSettings.Instance.ShowSpatialAudioWarningMsg && gameObject.GetComponent<UnityEngine.Rigidbody>() == null)
+		if (AkWwiseEditorSettings.Instance.ShowMissingRigidBodyWarning && gameObject.GetComponent<UnityEngine.Rigidbody>() == null)
 		{
 			UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
 

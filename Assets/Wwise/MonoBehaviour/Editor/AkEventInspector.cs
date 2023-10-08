@@ -1,20 +1,9 @@
 #if UNITY_EDITOR
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
 
 [UnityEditor.CanEditMultipleObjects]
 [UnityEditor.CustomEditor(typeof(AkEvent))]
@@ -249,16 +238,6 @@ public class AkEventInspector : AkBaseInspector
 
 		public static void PlayEvent(AkEvent akEvent)
 		{
-			if (!AkSoundEngine.IsInitialized())
-			{
-				UnityEngine.Debug.LogWarning("Sound Engine is not initialized. No sound will be heard.");
-				return;
-			}
-			if (!AkSoundEngineController.Instance.EditorListenerIsInitialized())
-			{
-				UnityEngine.Debug.LogWarning("Editor Listener isn't initialized. No sound will be heard.");
-				return;
-			}
 			if (akEvents.Contains(akEvent))
 			{
 				return;

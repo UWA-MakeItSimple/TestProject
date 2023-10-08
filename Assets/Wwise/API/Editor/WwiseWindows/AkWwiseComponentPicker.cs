@@ -1,20 +1,9 @@
 #if UNITY_EDITOR
-/*******************************************************************************
-The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
-Technology released in source code form as part of the game integration package.
-The content of this file may not be used without valid licenses to the
-AUDIOKINETIC Wwise Technology.
-Note that the use of the game engine is subject to the Unity(R) Terms of
-Service at https://unity3d.com/legal/terms-of-service
- 
-License Usage
- 
-Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
-this file in accordance with the end user license agreement provided with the
-software or, alternatively, in accordance with the terms contained
-in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
-*******************************************************************************/
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
 
 public class AkWwiseComponentPicker : UnityEditor.EditorWindow
 {
@@ -87,7 +76,7 @@ public class AkWwiseComponentPicker : UnityEditor.EditorWindow
 				if (UnityEngine.GUILayout.Button("Ok"))
 				{
 					//Get the selected item
-					var selectedItem = m_treeView.dataSource.FindById(m_treeView.state.lastClickedID);
+					var selectedItem = m_treeView.dataSource.Find(m_treeView.state.lastClickedID);
 
 					SetGuid(selectedItem);
 				}
