@@ -346,6 +346,13 @@ public class AkPluginActivator
 			var pluginConfig = string.Empty;
 			var bIsSupportLibrary = SupportLibraries.Contains(pluginName);
 
+			// contine if splitPath length is less than 3
+			if (splitPath.Length < 3)
+			{
+				UnityEngine.Debug.Log("WwiseUnity: Unknown plugin: " + pluginImporter.assetPath);
+				continue;
+			}
+
 			switch (pluginPlatform)
 			{
 				case "iOS":
@@ -378,6 +385,7 @@ public class AkPluginActivator
 					else
 					{
 						UnityEngine.Debug.Log("WwiseUnity: Architecture not found: " + pluginArch);
+						continue;
 					}
 					break;
 
